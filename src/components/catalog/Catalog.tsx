@@ -1,0 +1,13 @@
+"use client";
+
+import { Typography, Box, Button } from "@mui/material";
+
+export const Catalog = () => {
+  return (
+    <Box>
+      <Typography variant="h4" gutterBottom>
+        Каталог
+      </Typography>
+    </Box>
+  );
+};
