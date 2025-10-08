@@ -1,4 +1,4 @@
-# Prom Concept
+# Shop
 
 This is a Next.js application.
 

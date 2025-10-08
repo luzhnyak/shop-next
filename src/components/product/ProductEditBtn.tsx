@@ -3,22 +3,22 @@
 import { Delete, Edit } from "@mui/icons-material";
 import { Box, Button, Stack } from "@mui/material";
 import { Popconfirm } from "../ui/Popconfirm";
-import { CompanyVisibilityToggle } from "./CompanyVisibilityToggle";
-import { useDeleteCompanyMutation } from "@/redux/products/productsApi";
+// import { ProductVisibilityToggle } from "./ProductVisibilityToggle";
+import { useDeleteProductMutation } from "@/redux/products/productsApi";
 import { useEffect, useState } from "react";
-import { ICompany, Routes } from "@/types";
-import { CompanyEditForm } from "./CompanyEditForm";
+import { IProduct, Routes } from "@/types";
+import { ProductEditForm } from "./ProductEditForm";
 import { Modal } from "../ui/Modal/Modal";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 type Props = {
-  company: ICompany;
+  product: IProduct;
 };
 
-export const CompanyEditBtn = ({ company }: Props) => {
-  const [deleteCompany, { isLoading: isDeleting, isSuccess: isDeleted }] =
-    useDeleteCompanyMutation();
+export const ProductEditBtn = ({ product }: Props) => {
+  const [deleteProduct, { isLoading: isDeleting, isSuccess: isDeleted }] =
+    useDeleteProductMutation();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
@@ -26,7 +26,7 @@ export const CompanyEditBtn = ({ company }: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (isDeleted) router.push(Routes.COMPANIES);
+    if (isDeleted) router.push(Routes.PRODUCTS);
   }, [isDeleted, router]);
 
   return (
@@ -44,7 +44,7 @@ export const CompanyEditBtn = ({ company }: Props) => {
         <Popconfirm
           title={t("dialog.deleteConfirmTitle")}
           description={t("dialog.deleteConfirmMessage")}
-          onConfirm={() => deleteCompany(company.id)}
+          onConfirm={() => deleteProduct(product.id)}
           okText={t("actions.btnOk")}
           cancelText={t("actions.btnCancel")}
         >
@@ -58,14 +58,14 @@ export const CompanyEditBtn = ({ company }: Props) => {
           </Button>
         </Popconfirm>
       </Stack>
-      <CompanyVisibilityToggle
-        companyId={company.id}
-        currentVisibility={company.visibility}
-      />
+      {/* <ProductVisibilityToggle
+        productId={product.id}
+        currentVisibility={product.visibility}
+      /> */}
       <Modal isOpenModal={isEditModalOpen} setOpenModal={setIsEditModalOpen}>
-        <CompanyEditForm
-          companyId={company.id}
-          initialData={{ name: company.name, description: company.description }}
+        <ProductEditForm
+          productId={product.id}
+          initialData={product}
           setIsOpenModal={setIsEditModalOpen}
         />
       </Modal>

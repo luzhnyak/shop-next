@@ -6,13 +6,13 @@ import { TextField, Button, Stack, Typography, Box } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 import {
-  useCreateCompanyMutation,
-  useUpdateCompanyMutation,
-} from "@/redux/products/productsApi";
-import { useCompanySchema } from "@/schemas/company";
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+} from "@/redux/categories/categoriesApi";
+import { useCategorySchema } from "@/schemas/category";
 
-interface CompanyEditFormProps {
-  companyId?: number;
+interface CategoryEditFormProps {
+  categoryId?: number;
   initialData?: {
     name: string;
     description: string;
@@ -20,18 +20,20 @@ interface CompanyEditFormProps {
   setIsOpenModal: (isOpen: boolean) => void;
 }
 
-export const CompanyEditForm = ({
-  companyId,
+export const CategoryEditForm = ({
+  categoryId,
   initialData,
   setIsOpenModal,
-}: CompanyEditFormProps) => {
-  const isEditing = Boolean(companyId);
+}: CategoryEditFormProps) => {
+  const isEditing = Boolean(categoryId);
 
-  const [createCompany, { isLoading: isCreating }] = useCreateCompanyMutation();
-  const [updateCompany, { isLoading: isUpdating }] = useUpdateCompanyMutation();
+  const [createCategory, { isLoading: isCreating }] =
+    useCreateCategoryMutation();
+  const [updateCategory, { isLoading: isUpdating }] =
+    useUpdateCategoryMutation();
 
   const t = useTranslations();
-  const schema = useCompanySchema();
+  const schema = useCategorySchema();
 
   const {
     register,
@@ -47,9 +49,9 @@ export const CompanyEditForm = ({
 
   const onSubmit = async (data: { name: string; description: string }) => {
     if (isEditing) {
-      updateCompany({ id: companyId!, ...data });
+      updateCategory({ id: categoryId!, ...data });
     } else {
-      createCompany(data);
+      createCategory(data);
     }
     setIsOpenModal(false);
   };
@@ -58,19 +60,19 @@ export const CompanyEditForm = ({
     <Box>
       <Typography variant="h5" align="center" gutterBottom sx={{ px: 5 }}>
         {isEditing
-          ? t("company.titleEditCompany")
-          : t("company.titleCreateCompany")}
+          ? t("category.titleEditCategory")
+          : t("category.titleCreateCategory")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <TextField
-            label={t("company.name")}
+            label={t("category.name")}
             {...register("name")}
             error={!!errors.name}
             helperText={errors.name?.message}
           />
           <TextField
-            label={t("company.description")}
+            label={t("category.description")}
             {...register("description")}
             error={!!errors.description}
             helperText={errors.description?.message}

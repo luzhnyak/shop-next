@@ -2,8 +2,8 @@ import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
-export const useCompanySchema = () => {
-  const t = useTranslations("company");
+export const useCategorySchema = () => {
+  const t = useTranslations("category");
 
   const schema = useMemo(
     () =>

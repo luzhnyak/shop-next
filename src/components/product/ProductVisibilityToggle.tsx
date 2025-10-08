@@ -1,23 +1,23 @@
 "use client";
 
 import { Switch, FormControlLabel } from "@mui/material";
-import { useUpdateCompanyVisibilityMutation } from "@/redux/products/productsApi";
+import { useUpdateProductVisibilityMutation } from "@/redux/products/productsApi";
 import { useTranslations } from "next-intl";
 
 interface Props {
-  companyId: number;
+  productId: number;
   currentVisibility: boolean;
 }
 
-export const CompanyVisibilityToggle = ({
-  companyId,
+export const ProductVisibilityToggle = ({
+  productId,
   currentVisibility,
 }: Props) => {
   const [updateVisibility, { isLoading }] =
-    useUpdateCompanyVisibilityMutation();
+    useUpdateProductVisibilityMutation();
 
   const handleToggle = async () => {
-    await updateVisibility({ id: companyId, visibility: !currentVisibility });
+    await updateVisibility({ id: productId, visibility: !currentVisibility });
   };
 
   const t = useTranslations();
@@ -31,7 +31,7 @@ export const CompanyVisibilityToggle = ({
           disabled={isLoading}
         />
       }
-      label={t("company.visibility")}
+      label={t("product.visibility")}
     />
   );
 };

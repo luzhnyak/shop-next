@@ -92,10 +92,24 @@
         "titleEditProduct": "Редагування продукту",
         "titleCreateProduct": "Створення продукту",
         "name": "Назва",
-        "description": "Опис"
+        "description": "Опис",
+        "base_price": "Ціна",
+        "sku": "SKU",
+        "stock_quantity": "Кількість на складі",
+        "category_id": "ID категорії",
+        "validationNameRequired": "Назва є обов'язковою",
+        "validationDescriptionRequired": "Опис є обов'язковим",
+        "validationBasePriceNumber": "Ціна має бути числом",
+        "validationBasePriceRequired": "Ціна є обов'язковою",
+        "validationSkuRequired": "SKU є обов'язковим",
+        "validationStockQuantityNumber": "Кількість на складі має бути числом",
+        "validationStockQuantityRequired": "Кількість на складі є обов'язковою",
+        "validationCategoryIdRequired": "ID категорії є обов'язковим",
+        "errorLoadingProduct": "Не вдалося завантажити продукт",
+        "productNotFound": "Продукт не знайдений"
     },
     "catalog": {
-        "titleCatalog": "Каталог",
+        "title": "Каталог",
         "description": "Каталог продукції"
     },
     "user": {

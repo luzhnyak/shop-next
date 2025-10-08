@@ -5,18 +5,22 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CustomTable } from "../ui/CustomTable";
 import { useTranslations } from "next-intl";
 import { Typography, Box, Button } from "@mui/material";
-import { Add, Visibility } from "@mui/icons-material";
+import { Add, Delete, Edit, Visibility } from "@mui/icons-material";
 
 import { ColorBtn, IProduct, Routes } from "@/types";
-import { useGetProductsQuery } from "@/redux/products/productsApi";
+import {
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from "@/redux/products/productsApi";
 import { useUpdateSearchParams } from "@/hooks/updateSearchParams";
 import { CustomTablePagination } from "@/components/ui/CustomTablePagination";
 import { Modal } from "@/components/ui/Modal/Modal";
 import { Action } from "@/components/ui/TableActionsBtn";
-// import { CompanyEditForm } from "@/components/product";
+import { ProductEditForm } from "@/components/product";
 
 export const ProductList = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+  const [productId, setProductId] = useState<number>(0);
 
   const searchParams = useSearchParams();
   const updateSearchParams = useUpdateSearchParams();
@@ -28,6 +32,7 @@ export const ProductList = () => {
     skip: (page - 1) * rowsPerPage,
     limit: rowsPerPage,
   });
+  const [deleteProduct] = useDeleteProductMutation();
 
   const t = useTranslations();
   const router = useRouter();
@@ -44,6 +49,27 @@ export const ProductList = () => {
       icon: <Visibility />,
       color: ColorBtn.PRIMARY,
       onClick: (product) => router.push(`${Routes.PRODUCTS}/${product.id}`),
+    },
+    {
+      key: "editCategoryBtn",
+      icon: <Edit />,
+      color: ColorBtn.PRIMARY,
+      onClick: (category) => {
+        setProductId(category.id);
+        setIsCreateModalOpen(true);
+      },
+    },
+    {
+      key: "deleteCategoryBtn",
+      icon: <Delete />,
+      color: ColorBtn.ERROR,
+      onClick: (category) => {
+        deleteProduct(category.id);
+      },
+      confirm: {
+        title: t("dialog.deleteConfirmTitle"),
+        description: t("dialog.deleteUserConfirmMessage"),
+      },
     },
   ];
 
@@ -78,12 +104,20 @@ export const ProductList = () => {
           updateSearchParams({ rowsPerPage: newRows, page: 1 })
         }
       />
-      {/* <Modal
+      <Modal
         isOpenModal={isCreateModalOpen}
         setOpenModal={setIsCreateModalOpen}
       >
-        <ProductEditForm setIsOpenModal={setIsCreateModalOpen} />
-      </Modal> */}
+        {Boolean(productId) ? (
+          <ProductEditForm
+            productId={productId}
+            initialData={data?.items.find((p) => p.id === productId)}
+            setIsOpenModal={setIsCreateModalOpen}
+          />
+        ) : (
+          <ProductEditForm setIsOpenModal={setIsCreateModalOpen} />
+        )}
+      </Modal>
     </Box>
   );
 };

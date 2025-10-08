@@ -5,18 +5,22 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CustomTable } from "../ui/CustomTable";
 import { useTranslations } from "next-intl";
 import { Typography, Box, Button } from "@mui/material";
-import { Add, Visibility } from "@mui/icons-material";
+import { Add, Delete, Edit, Visibility } from "@mui/icons-material";
 
 import { ColorBtn, ICategory, Routes } from "@/types";
-import { useGetCategoriesQuery } from "@/redux/categories/categoriesApi";
+import {
+  useGetCategoriesQuery,
+  useDeleteCategoryMutation,
+} from "@/redux/categories/categoriesApi";
 import { useUpdateSearchParams } from "@/hooks/updateSearchParams";
 import { CustomTablePagination } from "@/components/ui/CustomTablePagination";
 import { Modal } from "@/components/ui/Modal/Modal";
 import { Action } from "@/components/ui/TableActionsBtn";
-// import { CompanyEditForm } from "@/components/product";
+import { CategoryEditForm } from "./CategoryEditForm";
 
 export const CategoryList = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+  const [categoryId, setCategoryId] = useState<number>(0);
 
   const searchParams = useSearchParams();
   const updateSearchParams = useUpdateSearchParams();
@@ -28,6 +32,7 @@ export const CategoryList = () => {
     skip: (page - 1) * rowsPerPage,
     limit: rowsPerPage,
   });
+  const [deleteCategory] = useDeleteCategoryMutation();
 
   const t = useTranslations();
   const router = useRouter();
@@ -40,10 +45,25 @@ export const CategoryList = () => {
 
   const actions: Action<ICategory>[] = [
     {
-      key: "viewUserBtn",
-      icon: <Visibility />,
+      key: "editCategoryBtn",
+      icon: <Edit />,
       color: ColorBtn.PRIMARY,
-      onClick: (category) => router.push(`${Routes.CATEGORIES}/${category.id}`),
+      onClick: (category) => {
+        setCategoryId(category.id);
+        setIsCreateModalOpen(true);
+      },
+    },
+    {
+      key: "deleteCategoryBtn",
+      icon: <Delete />,
+      color: ColorBtn.ERROR,
+      onClick: (category) => {
+        deleteCategory(category.id);
+      },
+      confirm: {
+        title: t("dialog.deleteConfirmTitle"),
+        description: t("dialog.deleteUserConfirmMessage"),
+      },
     },
   ];
 
@@ -78,12 +98,20 @@ export const CategoryList = () => {
           updateSearchParams({ rowsPerPage: newRows, page: 1 })
         }
       />
-      {/* <Modal
+      <Modal
         isOpenModal={isCreateModalOpen}
         setOpenModal={setIsCreateModalOpen}
       >
-        <CategoryEditForm setIsOpenModal={setIsCreateModalOpen} />
-      </Modal> */}
+        {Boolean(categoryId) ? (
+          <CategoryEditForm
+            categoryId={categoryId}
+            initialData={data?.items.find((c) => c.id === categoryId)}
+            setIsOpenModal={setIsCreateModalOpen}
+          />
+        ) : (
+          <CategoryEditForm setIsOpenModal={setIsCreateModalOpen} />
+        )}
+      </Modal>
     </Box>
   );
 };

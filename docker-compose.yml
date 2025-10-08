@@ -1,6 +1,6 @@
 services:
   nextjs:
-    container_name: prom-concept-next
+    container_name: shop-next
     build: .
     ports:
       - "3000:3000"

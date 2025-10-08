@@ -16,6 +16,11 @@ export interface IProductUpdate extends IProductCreate {
   id: number;
 }
 
+export interface IProductVisibilityUpdate {
+  id: number;
+  visibility: boolean;
+}
+
 export interface IProduct extends IProductBase {
   id: number;
   options: string[];

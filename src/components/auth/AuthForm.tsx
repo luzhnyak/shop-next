@@ -14,7 +14,6 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Auth0Button } from "./Auth0Button";
 import { AuthFormData, IUserSignUp } from "@/types";
 import { useLoginSchema, useRegisterSchema } from "@/schemas/auth";
 import { toast } from "react-toastify";
@@ -112,7 +111,6 @@ export const AuthForm = () => {
           >
             {isLogin ? t("signInQuestion") : t("signUpQuestion")}
           </Typography>
-          <Auth0Button />
         </Stack>
       </Box>
     </Container>

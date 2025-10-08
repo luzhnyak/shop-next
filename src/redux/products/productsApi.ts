@@ -7,6 +7,8 @@ import {
   HTTPMethods,
   ApiParams,
   IProductCreate,
+  IProductUpdate,
+  IProductVisibilityUpdate,
 } from "../../types";
 
 export const productsApi = createApi({
@@ -38,10 +40,24 @@ export const productsApi = createApi({
       }),
       invalidatesTags: [{ type: "Products", id: "LIST" }],
     }),
-    updateProduct: builder.mutation<IProduct, IProduct>({
+    updateProduct: builder.mutation<IProduct, IProductUpdate>({
       query: (body) => ({
         method: HTTPMethods.PUT,
         url: `/products/${body.id}`,
+        body: body,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: "Products", id: "LIST" },
+        { type: "Product", id },
+      ],
+    }),
+    updateProductVisibility: builder.mutation<
+      IProduct,
+      IProductVisibilityUpdate
+    >({
+      query: (body) => ({
+        method: HTTPMethods.PATCH,
+        url: `/companies/${body.id}/visibility`,
         body: body,
       }),
       invalidatesTags: (result, error, { id }) => [
@@ -64,5 +80,6 @@ export const {
   useGetProductsQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
+  useUpdateProductVisibilityMutation,
   useDeleteProductMutation,
 } = productsApi;

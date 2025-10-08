@@ -80,24 +80,37 @@
         "tabQuizzes": "Quizzes"
     },
     "category": {
-        "titleCategory": "Категорія",
-        "titleCategories": "Категорії",
-        "titleEditCategory": "Редагування категорії",
-        "titleCreateCategory": "Створення категорії",
-        "name": "Назва",
-        "description": "Опис"
+        "titleCategory": "Category",
+        "titleCategories": "Categories",
+        "titleEditCategory": "Edit Category",
+        "titleCreateCategory": "Create Category",
+        "name": "Name",
+        "description": "Description"
     },
     "product": {
-        "titleProduct": "Продукт",
-        "titleProducts": "Продукти",
-        "titleEditProduct": "Редагування продукту",
-        "titleCreateProduct": "Створення продукту",
-        "name": "Назва",
-        "description": "Опис"
+        "titleProduct": "Product",
+        "titleProducts": "Products",
+        "titleEditProduct": "Edit Product",
+        "titleCreateProduct": "Create Product",
+        "name": "Name",
+        "description": "Description",
+        "base_price": "Base Price",
+        "stock_quantity": "Stock Quantity",
+        "category_id": "Category ID",
+        "validationNameRequired": "Name is required",
+        "validationDescriptionRequired": "Description is required",
+        "validationBasePriceNumber": "Base Price must be a number",
+        "validationBasePriceRequired": "Base Price is required",
+        "validationSkuRequired": "SKU is required",
+        "validationStockQuantityNumber": "Stock Quantity must be a number",
+        "validationStockQuantityRequired": "Stock Quantity is required",
+        "validationCategoryIdRequired": "Category ID is required",
+        "errorLoadingProduct": "Error loading product",
+        "productNotFound": "Product not found"
     },
     "catalog": {
-        "titleCatalog": "Каталог",
-        "description": "Каталог продукції"
+        "title": "Catalog",
+        "description": "Catalog of products"
     },
     "user": {
         "titleUser": "User",
