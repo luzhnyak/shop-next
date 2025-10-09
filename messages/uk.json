@@ -16,7 +16,8 @@
         "catalog": "Каталог",
         "profile": "Профіль",
         "signIn": "Увійти",
-        "logout": "Вийти"
+        "logout": "Вийти",
+        "admin": "Адмін-панель"
     },
     "dialog": {
         "deleteConfirmTitle": "Видалити",

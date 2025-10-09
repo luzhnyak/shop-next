@@ -6,6 +6,7 @@ import { TextField, Button, Stack, Typography, Box } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 import {
+  useCreateUserMutation,
   useGetUserByIdQuery,
   useUpdateUserMutation,
 } from "../../redux/users/usersApi";
@@ -13,13 +14,31 @@ import { useUserUpdateSchema } from "@/schemas/user";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
+interface ProductFormData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+}
+
 interface UserEditFormProps {
-  userId: number;
+  userId?: number;
+  initialData?: {
+    first_name: string;
+    last_name: string;
+    email: string;
+  };
   setIsOpenModal: (isOpen: boolean) => void;
 }
 
-export const UserEditForm = ({ userId, setIsOpenModal }: UserEditFormProps) => {
-  const { data: user, error } = useGetUserByIdQuery(userId);
+export const UserEditForm = ({
+  userId,
+  initialData,
+  setIsOpenModal,
+}: UserEditFormProps) => {
+  const isEditing = Boolean(userId);
+
+  const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
 
   const t = useTranslations();
@@ -29,11 +48,12 @@ export const UserEditForm = ({ userId, setIsOpenModal }: UserEditFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<ProductFormData>({
     resolver: yupResolver(schema),
     defaultValues: {
-      first_name: user?.first_name || "",
-      last_name: user?.last_name || "",
+      first_name: initialData?.first_name || "",
+      last_name: initialData?.last_name || "",
+      email: initialData?.email || "",
       password: "",
     },
   });
@@ -44,13 +64,17 @@ export const UserEditForm = ({ userId, setIsOpenModal }: UserEditFormProps) => {
     email?: string;
     password?: string;
   }) => {
-    await updateUser({ id: userId, ...data });
+    if (isEditing) {
+      await updateUser({ id: userId!, ...data });
+    } else {
+      createUser(data);
+    }
     setIsOpenModal(false);
   };
 
-  useEffect(() => {
-    if (error) toast.error(t("user.errorLoadingUser"));
-  }, [error, t, toast]);
+  // useEffect(() => {
+  //   if (error) toast.error(t("user.errorLoadingUser"));
+  // }, [error, t, toast]);
 
   return (
     <Box>
@@ -72,6 +96,12 @@ export const UserEditForm = ({ userId, setIsOpenModal }: UserEditFormProps) => {
             helperText={errors.last_name?.message}
           />
           <TextField
+            label={t("user.email")}
+            {...register("email")}
+            error={!!errors.email}
+            helperText={errors.email?.message}
+          />
+          <TextField
             label={t("user.password")}
             type="password"
             {...register("password")}
@@ -82,9 +112,11 @@ export const UserEditForm = ({ userId, setIsOpenModal }: UserEditFormProps) => {
             type="submit"
             variant="contained"
             color="primary"
-            disabled={isUpdating}
+            disabled={isCreating || isUpdating}
           >
-            {isUpdating ? t("actions.btnSaving") : t("actions.btnSave")}
+            {isCreating || isUpdating
+              ? t("actions.btnSaving")
+              : t("actions.btnSave")}
           </Button>
         </Stack>
       </form>

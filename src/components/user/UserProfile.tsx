@@ -25,13 +25,7 @@ import { Popconfirm } from "../ui/Popconfirm";
 import { toast } from "react-toastify";
 import { Routes } from "@/types";
 import { Modal } from "../ui/Modal/Modal";
-import {
-  UserInviteBtn,
-  UserInviteList,
-  UserEditForm,
-  UserRequestList,
-  UserCompanyList,
-} from "@/components/user";
+import { UserEditForm } from "@/components/user";
 
 export const UserProfile = () => {
   const params = useParams();
@@ -89,58 +83,46 @@ export const UserProfile = () => {
           <Typography variant="body1" color="text.secondary">
             {user.email}
           </Typography>
-          {currentUser && currentUser.id === user.id && (
-            <Stack
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-              sx={{ pt: 2 }}
+
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="center"
+            sx={{ pt: 2 }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<Edit />}
+              onClick={handleEdit}
+              disabled={isDeleting}
+            >
+              {t("actions.btnEdit")}
+            </Button>
+            <Popconfirm
+              title={t("dialog.deleteConfirmTitle")}
+              description={t("dialog.deleteConfirmMessage")}
+              onConfirm={handleDelete}
+              okText={t("actions.btnOk")}
+              cancelText={t("actions.btnCancel")}
             >
               <Button
                 variant="contained"
-                color="primary"
-                startIcon={<Edit />}
-                onClick={handleEdit}
+                color="error"
+                startIcon={<Delete />}
                 disabled={isDeleting}
               >
-                {t("actions.btnEdit")}
+                {isDeleting ? t("actions.btnDeleting") : t("actions.btnDelete")}
               </Button>
-              <Popconfirm
-                title={t("dialog.deleteConfirmTitle")}
-                description={t("dialog.deleteConfirmMessage")}
-                onConfirm={handleDelete}
-                okText={t("actions.btnOk")}
-                cancelText={t("actions.btnCancel")}
-              >
-                <Button
-                  variant="contained"
-                  color="error"
-                  startIcon={<Delete />}
-                  disabled={isDeleting}
-                >
-                  {isDeleting
-                    ? t("actions.btnDeleting")
-                    : t("actions.btnDelete")}
-                </Button>
-              </Popconfirm>
-            </Stack>
-          )}
-          {currentUser.id != user.id && <UserInviteBtn userId={userId} />}
+            </Popconfirm>
+          </Stack>
         </CardContent>
       </Card>
-      <UserCompanyList userId={userId} />
-      {currentUser.id === user.id && (
-        <Box>
-          <UserRequestList userId={userId} />
-          <UserInviteList userId={userId} />
-          <Modal
-            isOpenModal={isEditModalOpen}
-            setOpenModal={setIsEditModalOpen}
-          >
-            <UserEditForm userId={userId} setIsOpenModal={setIsEditModalOpen} />
-          </Modal>
-        </Box>
-      )}
+      <Box>
+        <Modal isOpenModal={isEditModalOpen} setOpenModal={setIsEditModalOpen}>
+          <UserEditForm userId={userId} setIsOpenModal={setIsEditModalOpen} />
+        </Modal>
+      </Box>
     </Box>
   );
 };

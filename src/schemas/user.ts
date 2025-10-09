@@ -10,6 +10,10 @@ export const useUserUpdateSchema = () => {
       yup.object().shape({
         first_name: yup.string().required(t("validationFirstNameRequired")),
         last_name: yup.string().required(t("validationLastNameRequired")),
+        email: yup
+          .string()
+          .email(t("validationEmailInvalid"))
+          .required(t("validationEmailRequired")),
         password: yup
           .string()
           .required(t("validationPasswordRequired"))
