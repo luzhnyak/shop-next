@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { ResponsiveAdminAppBar } from "@/components/admin/ResponsiveAdminAppBar";
+import { ResponsiveAdminAppBar } from "@/components/common/ResponsiveAdminAppBar";
 import { RouteGuard } from "@/components/auth";
 import { CustomContainer } from "@/components/ui/CustomContainer";
 

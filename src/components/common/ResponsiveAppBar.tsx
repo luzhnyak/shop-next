@@ -19,11 +19,11 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-import { adminPages, settings } from "@/constants/navigation";
+import { pages, settings } from "@/constants/navigation";
 import { Popconfirm } from "../ui/Popconfirm";
 import { Routes } from "@/types";
-import { LanguageSwitcher } from "../LanguageSwitcher";
-import { Loader } from "../Loader";
+import { LanguageSwitcher } from "../common/LanguageSwitcher";
+import { Loader } from "../common/Loader";
 import { useAuthLogout } from "@/hooks/useAuthLogout";
 
 import {
@@ -31,7 +31,7 @@ import {
   selectIsLoggedIn,
 } from "@/redux/auth/authSelectors";
 
-export const ResponsiveAdminAppBar = () => {
+export const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -120,7 +120,7 @@ export const ResponsiveAdminAppBar = () => {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {adminPages.map((page) => (
+              {pages.map((page) => (
                 <MenuItem
                   key={page.route}
                   onClick={() => handleClickItemMenu(page.route)}
@@ -152,7 +152,7 @@ export const ResponsiveAdminAppBar = () => {
             {"PromConcept"}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {adminPages.map((page) => (
+            {pages.map((page) => (
               <Button
                 key={page.route}
                 onClick={() => handleClickItemMenu(page.route)}

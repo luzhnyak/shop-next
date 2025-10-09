@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 import { RouteGuard } from "@/components/auth";
-import { ResponsiveAppBar } from "@/components/ResponsiveAppBar";
+import { ResponsiveAppBar } from "@/components/common/ResponsiveAppBar";
 import { CustomContainer } from "@/components/ui/CustomContainer";
 
 const RestrictedLayout = async ({
