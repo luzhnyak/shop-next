@@ -4,9 +4,10 @@ export enum Routes {
   CATALOG = "/catalog",
   PRODUCTS = "/admin/products",
   CATEGORIES = "/admin/categories",
+  ADMIN = "/admin",
   USERS = "/admin/users",
   PROFILE = "/admin/profile",
-  SIGN_IN = "/sign-in",
+  SIGN_IN = "/auth/login",
 }
 
 export enum HTTPMethods {

@@ -86,7 +86,9 @@
         "titleEditCategory": "Edit Category",
         "titleCreateCategory": "Create Category",
         "name": "Name",
-        "description": "Description"
+        "description": "Description",
+        "validationNameRequired": "Name is required",
+        "validationDescriptionRequired": "Description is required"
     },
     "product": {
         "titleProduct": "Product",

@@ -85,7 +85,9 @@
         "titleEditCategory": "Редагування категорії",
         "titleCreateCategory": "Створення категорії",
         "name": "Назва",
-        "description": "Опис"
+        "description": "Опис",
+        "validationNameRequired": "Назва є обов'язковою",
+        "validationDescriptionRequired": "Опис є обов'язковим"
     },
     "product": {
         "titleProduct": "Продукт",

@@ -3,13 +3,12 @@ import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { ToastContainer } from "react-toastify";
+
+import { StoreProvider } from "@/redux/storeProvider";
+import { AuthProvider } from "@/components/auth";
 
 import "./globals.css";
-import { ResponsiveAppBar } from "@/components/ResponsiveAppBar";
-import { StoreProvider } from "@/redux/storeProvider";
-
-import { CustomContainer } from "@/components/ui/CustomContainer";
-import { AuthProvider } from "@/components/auth";
 
 export const metadata: Metadata = {
   title: "PromConcept project",
@@ -34,8 +33,8 @@ const RootLayout = async ({
           <AuthProvider>
             <NextIntlClientProvider messages={messages}>
               <AppRouterCacheProvider options={{ key: "css" }}>
-                <ResponsiveAppBar />
-                <CustomContainer>{children}</CustomContainer>
+                {children}
+                <ToastContainer />
               </AppRouterCacheProvider>
             </NextIntlClientProvider>
           </AuthProvider>
