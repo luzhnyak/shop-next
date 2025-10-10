@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { UserProfile } from "@/components/user";
+import { UserDetails } from "@/components/user";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("user");
@@ -12,7 +12,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const UserPage = () => {
-  return <UserProfile />;
+  return <UserDetails />;
 };
 
 export default UserPage;

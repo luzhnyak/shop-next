@@ -9,6 +9,7 @@ import {
   SelectChangeEvent,
   Box,
   Typography,
+  Stack,
 } from "@mui/material";
 import Image from "next/image";
 import { Locales } from "@/types";
@@ -32,22 +33,25 @@ export const LanguageSwitcher = () => {
       variant="standard"
       disableUnderline
       displayEmpty
-      sx={{ minWidth: 130, border: "none" }}
+      sx={{ border: "none" }}
     >
       {Object.entries(flags).map(([lang, flag]) => (
         <MenuItem key={lang} value={lang}>
-          <Box display="flex" alignItems="center">
-            <Image
-              src={flag}
-              alt={lang}
-              width={20}
-              height={14}
-              style={{ marginRight: 8 }}
-            />
-            <Typography>
+          <Stack
+            direction={"row"}
+            spacing={1}
+            alignItems={"center"}
+            sx={{ height: 30 }}
+          >
+            <Image src={flag} alt={lang} width={20} height={14} />
+            <Typography
+              sx={{
+                display: { xs: "none", sm: "flex" },
+              }}
+            >
               {lang === Locales.EN ? "English" : "Українська"}
             </Typography>
-          </Box>
+          </Stack>
         </MenuItem>
       ))}
     </Select>

@@ -6,8 +6,8 @@ export enum Routes {
   CATEGORIES = "/admin/categories",
   ADMIN = "/admin",
   USERS = "/admin/users",
-  PROFILE = "/admin/profile",
   SIGN_IN = "/auth/login",
+  PROFILE = "/profile",
 }
 
 export enum HTTPMethods {
