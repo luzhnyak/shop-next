@@ -7,9 +7,22 @@ export interface IProductBase {
   category_id: number;
 }
 
+interface IProductOption {
+  id: number;
+  name: string;
+  value: string;
+  additional_price: number;
+}
+
+interface IProductImage {
+  id: number;
+  image_url: string;
+  is_main: boolean;
+}
+
 export interface IProductCreate extends IProductBase {
-  options?: string[];
-  images?: string[];
+  options?: IProductOption[];
+  images?: IProductImage[];
 }
 
 export interface IProductUpdate extends IProductCreate {
@@ -23,8 +36,8 @@ export interface IProductVisibilityUpdate {
 
 export interface IProduct extends IProductBase {
   id: number;
-  options: string[];
-  images: string[];
+  options: IProductOption[];
+  images: IProductImage[];
   created_at: string;
   updated_at: string;
 }
