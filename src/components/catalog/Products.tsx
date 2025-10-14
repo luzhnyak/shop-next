@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import { useTranslations } from "next-intl";
 import { Typography, Box, Button, Stack } from "@mui/material";
@@ -11,6 +11,8 @@ import { useGetProductsQuery } from "@/redux/products/productsApi";
 import ProductCard from "./ProductCard";
 
 export const Products = () => {
+  const params = useParams();
+  const slug = params.categorySlug?.toString();
   const searchParams = useSearchParams();
 
   const page = Number(searchParams.get("page")) || 1;
@@ -19,6 +21,7 @@ export const Products = () => {
   const { data } = useGetProductsQuery({
     skip: (page - 1) * rowsPerPage,
     limit: rowsPerPage,
+    category: slug,
   });
 
   const t = useTranslations();
@@ -26,9 +29,6 @@ export const Products = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
-        {t("product.titleProducts")}
-      </Typography>
       <Grid container spacing={3}>
         {data?.items.map((product) => (
           <Grid

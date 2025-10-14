@@ -42,6 +42,7 @@ export type ApiParams = {
   role?: MembershipStatus;
   skip?: number;
   limit?: number;
+  category?: string;
 };
 
 export type HealthCheckTypes = {

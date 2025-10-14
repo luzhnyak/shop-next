@@ -1,5 +1,6 @@
 export interface ICategoryBase {
   name: string;
+  slug: string;
   description: string;
 }
 

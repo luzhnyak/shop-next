@@ -1,5 +1,6 @@
 export interface IProductBase {
   name: string;
+  slug: string;
   description: string;
   base_price: number;
   sku: string;
