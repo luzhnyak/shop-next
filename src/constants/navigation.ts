@@ -1,8 +1,9 @@
 import { Routes } from "@/types";
 
 export const pages = [
-  { nameKey: "navigation.about", route: Routes.ABOUT },
   { nameKey: "navigation.catalog", route: Routes.CATALOG },
+  { nameKey: "navigation.about", route: Routes.ABOUT },
+  { nameKey: "navigation.contacts", route: Routes.CONTACTS },
   { nameKey: "navigation.admin", route: Routes.ADMIN },
 ];
 

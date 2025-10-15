@@ -10,6 +10,7 @@
     },
     "navigation": {
         "about": "About",
+        "contacts": "Contacts",
         "users": "Users",
         "products": "Продукти",
         "categories": "Категорії",
@@ -129,8 +130,18 @@
         "userNotFound": "User not found"
     },
     "about": {
-        "title": "About",
-        "description": "PromConcept is a project that helps create interconnected projects that use innovative technologies and practices."
+        "title": "About Us",
+        "description": "We are a Ukrainian company specializing in the production of high-quality custom-made furniture. Our goal is to create comfortable, stylish and durable furniture that fits perfectly into your interior. We combine modern production technologies with an individual approach to each client.",
+        "card1Title": "Individual design",
+        "card1Description": "We design furniture to suit your style and space, taking into account every detail of the interior.",
+        "card2Title": "High quality",
+        "card2Description": "We use only certified materials and modern equipment for production.",
+        "card3Title": "Full production cycle",
+        "card3Description": "From design to installation - we control every stage so that you get the perfect result."
+    },
+    "contacts": {
+        "title": "Contacts",
+        "description": "We are always happy to hear from you! Contact us in any convenient way."
     },
     "paginatedTable": {
         "rowsPerPage": "Rows in the table:",
@@ -151,46 +162,5 @@
         "btnAccept": "Accept",
         "btnLeave": "Leave",
         "btnJoin": "Join"
-    },
-    "quiz": {
-        "titleQuizzes": "Quizzes",
-        "titleQuiz": "Quizz",
-        "name": "Name",
-        "description": "Description",
-        "frequency": "Frequency",
-        "question": "Question",
-        "addQuestion": "Add question",
-        "createQuiz": "Create Quiz",
-        "editQuiz": "Edit Quiz",
-        "editQuestion": "Edit Question",
-        "answerOption": "Answer option",
-        "answerOptions": "Answer options",
-        "addAnswerOption": "Add answer option",
-        "nameRequired": "Name is required",
-        "descriptionRequired": "Description is required",
-        "frequencyRequired": "Frequency is required",
-        "questionRequiredTitle": "Question title is required",
-        "answerOptionRequired": "Answer option is required",
-        "correctAnswerRequired": "Correct answer is required",
-        "minAnswerOptions": "Minimum 2 answer options are required",
-        "minQuestions": " Minimum 2 questions is required",
-        "questionsRequired": "Questions are required",
-        "NotFound": "Quiz not found"
-    },
-    "quizPlayer": {
-        "btnNext": "Next",
-        "btnPrev": "Prev",
-        "btnSubmit": "Send quiz",
-        "btnOk": "Ok",
-        "of": "of",
-        "resultTitle": "Result",
-        "totalQuestons": "Total questons",
-        "correctAnswers": "Correct answers",
-        "score": "Score",
-        "sendQuiz": "Send the quiz",
-        "areYouSureToSendQuiz": "Are you sure to send this quiz?",
-        "isLoading": "Loading...",
-        "errorSendingQuiz": "Error sending quiz",
-        "errorNotFound": "Quiz not found"
     }
 }
