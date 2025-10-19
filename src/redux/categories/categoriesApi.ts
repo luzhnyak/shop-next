@@ -21,6 +21,13 @@ export const categoriesApi = createApi({
       }),
       providesTags: (result, error, id) => [{ type: "Category", id }],
     }),
+    getCategoryBySlug: builder.query<ICategory, string>({
+      query: (slug) => ({
+        url: `/categories/slug/${slug}`,
+        method: HTTPMethods.GET,
+      }),
+      providesTags: (result, error, slug) => [{ type: "Category", slug }],
+    }),
     getAllCategories: builder.query<IApiResponse<ICategory>, ApiParams>({
       query: (params) => ({
         url: `/categories/all`,
@@ -70,6 +77,7 @@ export const categoriesApi = createApi({
 
 export const {
   useGetCategoryByIdQuery,
+  useGetCategoryBySlugQuery,
   useGetCategoriesQuery,
   useGetAllCategoriesQuery,
   useCreateCategoryMutation,

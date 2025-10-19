@@ -23,6 +23,13 @@ export const productsApi = createApi({
       }),
       providesTags: (result, error, id) => [{ type: "Product", id }],
     }),
+    getProductBySlug: builder.query<IProduct, string>({
+      query: (slug) => ({
+        url: `/products/slug/${slug}`,
+        method: HTTPMethods.GET,
+      }),
+      providesTags: (result, error, slug) => [{ type: "Product", slug }],
+    }),
     getProducts: builder.query<IApiResponse<IProduct>, ApiParams>({
       query: (params) => ({
         url: `/products/`,
@@ -77,6 +84,7 @@ export const productsApi = createApi({
 
 export const {
   useGetProductByIdQuery,
+  useGetProductBySlugQuery,
   useGetProductsQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
