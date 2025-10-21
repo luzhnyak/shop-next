@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, Typography, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 

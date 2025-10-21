@@ -1,5 +1,3 @@
-"use client";
-
 import { ReactNode } from "react";
 import { Typography, Card, CardContent, Avatar } from "@mui/material";
 import Grid from "@mui/material/Grid2";

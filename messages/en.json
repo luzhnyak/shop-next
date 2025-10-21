@@ -141,7 +141,15 @@
     },
     "contacts": {
         "title": "Contacts",
-        "description": "We are always happy to hear from you! Contact us in any convenient way."
+        "subtitle": "We are always happy to hear from you! Contact us in any convenient way.",
+        "locationTitle": "Location",
+        "locationText": "Kyiv, Ukraine",
+        "phoneTitle": "Phone",
+        "phoneText": "+38 (097) 123-45-67",
+        "emailTitle": "Email",
+        "emailText": "info@mebel-shop.ua",
+        "scheduleTitle": "Schedule",
+        "scheduleText": "Monday-Friday: 9:00-18:00, Saturday-Sunday: closed"
     },
     "paginatedTable": {
         "rowsPerPage": "Rows in the table:",
