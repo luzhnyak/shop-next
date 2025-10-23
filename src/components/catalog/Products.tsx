@@ -12,7 +12,8 @@ import ProductCard from "./ProductCard";
 
 export const Products = () => {
   const params = useParams();
-  const slug = params.categorySlug?.toString();
+  const slug = params.slug?.toString();
+
   const searchParams = useSearchParams();
 
   const page = Number(searchParams.get("page")) || 1;
