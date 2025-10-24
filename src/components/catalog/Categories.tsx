@@ -1,18 +1,17 @@
-"use client";
-
 import Link from "next/link";
-import { useRouter, useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import { useGetAllCategoriesQuery } from "@/redux/categories/categoriesApi";
+import { serverApiClient } from "@/lib/server-api";
 
-export const Categories = () => {
-  const { data } = useGetAllCategoriesQuery({});
-  const t = useTranslations();
-  const router = useRouter();
-  const theme = useTheme();
-  const params = useParams();
-  const currentSlug = params.slug?.toString();
+interface CategoriesProps {
+  currentSlug?: string;
+}
+
+export const Categories = async ({ currentSlug }: CategoriesProps) => {
+  const categories = await serverApiClient.getAllCategories();
+
+  if (!categories?.items || categories.items.length === 0) {
+    return null;
+  }
 
   return (
     <Box
@@ -20,7 +19,9 @@ export const Categories = () => {
         width: "100%",
         overflowX: "auto",
         bgcolor: "background.paper",
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        borderBottom: "1px solid",
+        borderColor: "divider",
+        paddingBottom: 2,
       }}
     >
       <Stack
@@ -33,7 +34,7 @@ export const Categories = () => {
           alignItems: "center",
         }}
       >
-        {data?.items.map((category) => {
+        {categories.items.map((category) => {
           const isActive = currentSlug === category.slug;
           return (
             <Typography
@@ -43,12 +44,12 @@ export const Categories = () => {
               variant="body1"
               sx={{
                 textDecoration: "none",
-                color: isActive ? theme.palette.primary.main : "text.primary",
+                color: isActive ? "primary.main" : "text.primary",
                 fontWeight: isActive ? 600 : 500,
                 position: "relative",
                 transition: "color 0.2s ease",
                 "&:hover": {
-                  color: theme.palette.primary.main,
+                  color: "primary.main",
                 },
                 "&::after": {
                   content: '""',
@@ -57,7 +58,7 @@ export const Categories = () => {
                   bottom: -4,
                   width: isActive ? "100%" : 0,
                   height: 2,
-                  bgcolor: theme.palette.primary.main,
+                  bgcolor: "primary.main",
                   transition: "width 0.2s ease",
                 },
                 "&:hover::after": {

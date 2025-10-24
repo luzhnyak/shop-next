@@ -99,6 +99,7 @@
         "name": "Name",
         "description": "Description",
         "base_price": "Base Price",
+        "sku": "SKU",
         "stock_quantity": "Stock Quantity",
         "category_id": "Category ID",
         "validationNameRequired": "Name is required",

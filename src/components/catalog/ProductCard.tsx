@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -12,25 +14,22 @@ import {
   Chip,
   Stack,
 } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IProduct } from "@/types";
 
 interface ProductCardProps {
   product: IProduct;
-  onAddToCart?: (product: IProduct) => void;
 }
 
-export default function ProductCard({
-  product,
-  onAddToCart,
-}: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
+  const router = useRouter();
   const mainImage =
     product.images.find((img) => img.is_main)?.image_url ||
     "/images/placeholder.png"; // заглушка
   const colorOption = product.options.find((opt) => opt.name === "color");
 
-  const handleAddToCart = () => {
-    if (onAddToCart) onAddToCart(product);
+  const handleViewProduct = () => {
+    router.push(`/catalog/${product.slug}`);
   };
 
   return (
@@ -57,7 +56,7 @@ export default function ProductCard({
           fill
           sizes="300px"
           style={{
-            objectFit: "cover",
+            objectFit: "contain",
             borderTopLeftRadius: "12px",
             borderTopRightRadius: "12px",
           }}
@@ -105,11 +104,10 @@ export default function ProductCard({
           fullWidth
           variant="contained"
           color="primary"
-          startIcon={<ShoppingCartIcon />}
-          disabled={product.stock_quantity === 0}
-          onClick={handleAddToCart}
+          startIcon={<VisibilityIcon />}
+          onClick={handleViewProduct}
         >
-          Додати в кошик
+          Переглянути
         </Button>
       </CardActions>
     </Card>

@@ -1,78 +1,59 @@
-"use client";
-
-import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { FavoriteBorder } from "@mui/icons-material";
 import {
   Box,
   Typography,
   Card,
   CardContent,
   CardMedia,
-  Grid,
   Chip,
   Stack,
   Divider,
   Button,
 } from "@mui/material";
-import { useGetProductBySlugQuery } from "@/redux/products/productsApi";
-import { useGetCategoryByIdQuery } from "@/redux/categories/categoriesApi";
+import Grid from "@mui/material/Grid2";
+import { serverApiClient } from "@/lib/server-api";
+import { notFound } from "next/navigation";
 
-export const Product = () => {
-  const params = useParams();
-  const slug = params.slug?.toString();
-  const t = useTranslations();
+interface ProductProps {
+  slug: string;
+}
 
-  const {
-    data: product,
-    isLoading: productLoading,
-    error: productError,
-  } = useGetProductBySlugQuery(slug || "");
-  const { data: category } = useGetCategoryByIdQuery(
-    product?.category_id || 0,
-    {
-      skip: !product?.category_id,
-    }
-  );
+export const Product = async ({ slug }: ProductProps) => {
+  const product = await serverApiClient.getProductBySlug(slug);
 
-  if (productLoading) {
-    return (
-      <Box sx={{ p: 3 }}>
-        <Typography>Завантаження...</Typography>
-      </Box>
-    );
+  if (!product) {
+    notFound();
   }
 
-  if (productError || !product) {
-    return (
-      <Box sx={{ p: 3 }}>
-        <Typography color="error">Продукт не знайдено</Typography>
-      </Box>
-    );
-  }
+  const category = product.category_id
+    ? await serverApiClient.getCategoryById(product.category_id)
+    : null;
 
   const mainImage =
-    product.images.find((img) => img.is_main) || product.images[0];
+    product.images.find((img) => img.is_main)?.image_url ||
+    "/images/placeholder.png";
 
   return (
     <Box sx={{ p: 3 }}>
       <Grid container spacing={4}>
         {/* Зображення продукту */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             {mainImage && (
               <CardMedia
                 component="img"
                 height="400"
-                image={mainImage.image_url}
+                image={mainImage}
                 alt={product.name}
-                sx={{ objectFit: "cover" }}
+                sx={{ objectFit: "contain" }}
               />
             )}
             {product.images.length > 1 && (
               <Box sx={{ p: 2 }}>
                 <Grid container spacing={1}>
                   {product.images.slice(1).map((image) => (
-                    <Grid item xs={3} key={image.id}>
+                    <Grid size={{ xs: 3 }} key={image.id}>
                       <CardMedia
                         component="img"
                         height="80"
@@ -93,7 +74,7 @@ export const Product = () => {
         </Grid>
 
         {/* Інформація про продукт */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Box>
             <Typography variant="h4" gutterBottom>
               {product.name}
@@ -176,13 +157,18 @@ export const Product = () => {
                 size="large"
                 disabled={product.stock_quantity === 0}
                 sx={{ mr: 2 }}
+                startIcon={<ShoppingCartIcon />}
               >
                 {product.stock_quantity > 0
                   ? "Додати до кошика"
                   : "Немає в наявності"}
               </Button>
 
-              <Button variant="outlined" size="large">
+              <Button
+                variant="outlined"
+                size="large"
+                startIcon={<FavoriteBorder />}
+              >
                 Додати до улюблених
               </Button>
             </Box>

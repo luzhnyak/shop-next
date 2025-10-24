@@ -1,42 +1,44 @@
-"use client";
-
-import { useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-
-import { useTranslations } from "next-intl";
-import { Typography, Box, Button, Stack } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-
-import { useGetProductsQuery } from "@/redux/products/productsApi";
+import { serverApiClient } from "@/lib/server-api";
 import ProductCard from "./ProductCard";
 
-export const Products = () => {
-  const params = useParams();
-  const slug = params.slug?.toString();
+interface ProductsProps {
+  categorySlug?: string;
+  page?: number;
+  limit?: number;
+}
 
-  const searchParams = useSearchParams();
-
-  const page = Number(searchParams.get("page")) || 1;
-  const rowsPerPage = Number(searchParams.get("rowsPerPage")) || 10;
-
-  const { data } = useGetProductsQuery({
-    skip: (page - 1) * rowsPerPage,
-    limit: rowsPerPage,
-    category: slug,
+export const Products = async ({
+  categorySlug,
+  page = 1,
+  limit = 10,
+}: ProductsProps) => {
+  const products = await serverApiClient.getProducts({
+    skip: (page - 1) * limit,
+    limit,
+    category: categorySlug,
   });
 
-  const t = useTranslations();
-  const router = useRouter();
+  if (!products?.items || products.items.length === 0) {
+    return (
+      <Box sx={{ py: 3, textAlign: "center" }}>
+        <Typography variant="h6" color="text.secondary">
+          Продукти не знайдено
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
-    <Box>
+    <Box sx={{ py: 3 }}>
       <Grid container spacing={3}>
-        {data?.items.map((product) => (
+        {products.items.map((product) => (
           <Grid
             key={product.id}
             size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2.4 }}
           >
-            <ProductCard key={product.id} product={product} />
+            <ProductCard product={product} />
           </Grid>
         ))}
       </Grid>
