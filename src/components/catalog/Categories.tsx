@@ -1,15 +1,14 @@
 import Link from "next/link";
-import { Box, Stack, Typography, useTheme } from "@mui/material";
-import { serverApiClient } from "@/lib/server-api";
+import { Box, Stack, Typography } from "@mui/material";
+import { ICategory } from "@/types";
 
 interface CategoriesProps {
   currentSlug?: string;
+  allCategories: ICategory[];
 }
 
-export const Categories = async ({ currentSlug }: CategoriesProps) => {
-  const categories = await serverApiClient.getAllCategories();
-
-  if (!categories?.items || categories.items.length === 0) {
+export const Categories = ({ currentSlug, allCategories }: CategoriesProps) => {
+  if (!allCategories || allCategories.length === 0) {
     return null;
   }
 
@@ -34,7 +33,7 @@ export const Categories = async ({ currentSlug }: CategoriesProps) => {
           alignItems: "center",
         }}
       >
-        {categories.items.map((category) => {
+        {allCategories.map((category) => {
           const isActive = currentSlug === category.slug;
           return (
             <Typography

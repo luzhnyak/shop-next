@@ -11,7 +11,21 @@ export const generateMetadata = async ({
   const t = await getTranslations("catalog");
   const { slug } = await params;
 
-  // Перевіряємо, чи це продукт
+  // Отримуємо всі категорії один раз
+  const allCategories = await serverApiClient.getAllCategories();
+
+  // Перевіряємо, чи slug належить категорії
+  const category = allCategories?.items?.find((cat) => cat.slug === slug);
+
+  if (category) {
+    return {
+      title: category.name,
+      description:
+        category.description || `Продукти категорії ${category.name}`,
+    };
+  }
+
+  // Якщо це не категорія, перевіряємо продукт
   const product = await serverApiClient.getProductBySlug(slug);
   if (product) {
     return {
@@ -22,16 +36,6 @@ export const generateMetadata = async ({
         description: product.description,
         images: product.images.length > 0 ? [product.images[0].image_url] : [],
       },
-    };
-  }
-
-  // Перевіряємо, чи це категорія
-  const category = await serverApiClient.getCategoryBySlug(slug);
-  if (category) {
-    return {
-      title: category.name,
-      description:
-        category.description || `Продукти категорії ${category.name}`,
     };
   }
 

@@ -12,13 +12,16 @@ export const Catalog = async ({ slug }: CatalogProps) => {
   let product = null;
   let category = null;
 
-  if (slug) {
-    // Перевіряємо, чи slug відповідає продукту
-    product = await serverApiClient.getProductBySlug(slug);
+  // Отримуємо всі категорії один раз
+  const allCategories = await serverApiClient.getAllCategories();
 
-    // Якщо не продукт, перевіряємо категорію
-    if (!product) {
-      category = await serverApiClient.getCategoryBySlug(slug);
+  if (slug && allCategories?.items) {
+    // Перевіряємо, чи slug належить категорії
+    category = allCategories.items.find((cat) => cat.slug === slug);
+
+    // Якщо це не категорія, перевіряємо продукт
+    if (!category) {
+      product = await serverApiClient.getProductBySlug(slug);
     }
   }
 
@@ -27,7 +30,10 @@ export const Catalog = async ({ slug }: CatalogProps) => {
       <Typography variant="h4" gutterBottom>
         Каталог
       </Typography>
-      <Categories currentSlug={slug} />
+      <Categories
+        currentSlug={slug}
+        allCategories={allCategories?.items || []}
+      />
 
       {product && <Product product={product} />}
       {category && !product && <Products categorySlug={slug} />}
