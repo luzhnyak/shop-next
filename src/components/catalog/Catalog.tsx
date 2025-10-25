@@ -29,7 +29,7 @@ export const Catalog = async ({ slug }: CatalogProps) => {
       </Typography>
       <Categories currentSlug={slug} />
 
-      {product && <Product slug={slug!} />}
+      {product && <Product product={product} />}
       {category && !product && <Products categorySlug={slug} />}
       {!slug && <Products />}
     </Box>

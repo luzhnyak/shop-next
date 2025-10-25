@@ -1,6 +1,5 @@
 export interface IProductBase {
   name: string;
-  slug: string;
   description: string;
   base_price: number;
   sku: string;
@@ -37,6 +36,7 @@ export interface IProductVisibilityUpdate {
 
 export interface IProduct extends IProductBase {
   id: number;
+  slug: string;
   options: IProductOption[];
   images: IProductImage[];
   created_at: string;

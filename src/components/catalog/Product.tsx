@@ -13,19 +13,13 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { serverApiClient } from "@/lib/server-api";
-import { notFound } from "next/navigation";
+import { IProduct } from "@/types";
 
 interface ProductProps {
-  slug: string;
+  product: IProduct;
 }
 
-export const Product = async ({ slug }: ProductProps) => {
-  const product = await serverApiClient.getProductBySlug(slug);
-
-  if (!product) {
-    notFound();
-  }
-
+export const Product = async ({ product }: ProductProps) => {
   const category = product.category_id
     ? await serverApiClient.getCategoryById(product.category_id)
     : null;
