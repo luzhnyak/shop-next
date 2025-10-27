@@ -74,6 +74,7 @@ export const ProductList = () => {
   ];
 
   const handleCreate = () => {
+    setProductId(0);
     setIsCreateModalOpen(true);
   };
 
