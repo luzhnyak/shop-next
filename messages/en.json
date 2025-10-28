@@ -1,4 +1,8 @@
 {
+    "common": {
+        "name": "Shop",
+        "description": "Shop of products"
+    },
     "hello": {
         "title": "Welcome to PromConcept!",
         "message": "FastAPI and React with Material-UI.",
@@ -12,9 +16,9 @@
         "about": "About",
         "contacts": "Contacts",
         "users": "Users",
-        "products": "Продукти",
-        "categories": "Категорії",
-        "catalog": "Каталог",
+        "products": "Products",
+        "categories": "Categories",
+        "catalog": "Catalog",
         "profile": "Profile",
         "signIn": "Sign In",
         "logout": "Logout",
@@ -28,7 +32,6 @@
         "leaveConfirmTitle": "Leave",
         "cancelConfirmTitle": "Cancel",
         "titleDialogCancelInviteConfirm": "Cancel invite",
-        "leaveCompanyConfirmMessage": "Do you want to leave this company?",
         "deleteUserConfirmMessage": "Do you want to delete this user?",
         "deleteAdminConfirmMessage": "Do you want to delete this admin?",
         "cancelInviteConfirmMessage": "Do you want to cancel this invitation?",
@@ -57,29 +60,6 @@
         "validationPasswordMinLength": "Password must be at least 6 characters",
         "validationFirstNameRequired": "First name is required",
         "validationLastNameRequired": "Last name is required"
-    },
-    "company": {
-        "titleCompany": "Company",
-        "titleCompanies": "Companies",
-        "titleAvialableCompanies": "Available Companies",
-        "titleEditCompany": "Edit Company",
-        "titleCreateCompany": "Create Company",
-        "titleMembers": "Members",
-        "titleAdmins": "Admins",
-        "titleInvitations": "Invitations",
-        "titleRequests": "Pending requests",
-        "btnJoin": "Join",
-        "btnJoined": "Joined",
-        "name": "Name",
-        "description": "Description",
-        "visibility": "Visibility",
-        "errorLoadingCompany": "Error loading company",
-        "companyNotFound": "Company not found",
-        "validationNameRequired": "Name is required",
-        "validationDescriptionRequired": "Description is required",
-        "tabMembers": "Members",
-        "tabInvites": "Invitations",
-        "tabQuizzes": "Quizzes"
     },
     "category": {
         "titleCategory": "Category",
@@ -116,6 +96,12 @@
     "catalog": {
         "title": "Catalog",
         "description": "Catalog of products"
+    },
+    "admin": {
+        "titleAdminPanel": "Admin Panel",
+        "titleAdminPanelUsers": "Users",
+        "titleAdminPanelProducts": "Products",
+        "titleAdminPanelCategories": "Categories"
     },
     "user": {
         "titleUser": "User",

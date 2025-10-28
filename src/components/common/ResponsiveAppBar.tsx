@@ -17,11 +17,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
 import { pages } from "@/constants/navigation";
-
 import { Routes } from "@/types";
-
 import { Loader } from "../common/Loader";
-
 import Link from "next/link";
 
 import { UserMenu } from "./UserMenu";
@@ -66,7 +63,7 @@ export const ResponsiveAppBar = () => {
               cursor: "pointer",
             }}
           >
-            {"PromConcept"}
+            {t("common.name")}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -124,7 +121,7 @@ export const ResponsiveAppBar = () => {
               cursor: "pointer",
             }}
           >
-            {"PromConcept"}
+            {t("common.name")}
           </Typography>
           <Stack
             direction="row"

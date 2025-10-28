@@ -4,15 +4,15 @@ import { getTranslations } from "next-intl/server";
 import { ProductList } from "@/components/product";
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const t = await getTranslations("company");
+  const t = await getTranslations("admin");
 
   return {
-    title: t("titleCompanies"),
+    title: t("titleAdminPanelProducts"),
   };
 };
 
-const ProductsPage = () => {
+const AdminPanelProductsPage = () => {
   return <ProductList />;
 };
 
-export default ProductsPage;
+export default AdminPanelProductsPage;

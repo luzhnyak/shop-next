@@ -1,7 +1,10 @@
 import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { serverApiClient } from "@/lib/server-api";
+
 import ProductCard from "./ProductCard";
+import PaginationLinks from "@/components/ui/PaginationLinks";
+import { Routes } from "@/types";
 
 interface ProductsProps {
   categorySlug?: string;
@@ -30,6 +33,11 @@ export const Products = async ({
     );
   }
 
+  const pathname = categorySlug
+    ? `${Routes.CATALOG}/${categorySlug}`
+    : `${Routes.CATALOG}`;
+  const query = {};
+
   return (
     <Box sx={{ py: 3 }}>
       <Grid container spacing={3}>
@@ -42,6 +50,13 @@ export const Products = async ({
           </Grid>
         ))}
       </Grid>
+      <PaginationLinks
+        total={products.total}
+        page={page}
+        limit={limit}
+        pathname={pathname}
+        query={query}
+      />
     </Box>
   );
 };

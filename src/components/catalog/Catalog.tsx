@@ -1,4 +1,5 @@
 import { Typography, Box } from "@mui/material";
+
 import { Products } from "./Products";
 import { Categories } from "./Categories";
 import { Product } from "./Product";
@@ -6,9 +7,11 @@ import { serverApiClient } from "@/lib/server-api";
 
 interface CatalogProps {
   slug?: string;
+  page?: number;
+  limit?: number;
 }
 
-export const Catalog = async ({ slug }: CatalogProps) => {
+export const Catalog = async ({ slug, page = 1, limit = 10 }: CatalogProps) => {
   let product = null;
   let category = null;
 
@@ -36,8 +39,10 @@ export const Catalog = async ({ slug }: CatalogProps) => {
       />
 
       {product && <Product product={product} />}
-      {category && !product && <Products categorySlug={slug} />}
-      {!slug && <Products />}
+      {category && !product && (
+        <Products categorySlug={slug} page={page} limit={limit} />
+      )}
+      {!slug && <Products page={page} limit={limit} />}
     </Box>
   );
 };

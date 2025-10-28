@@ -2,11 +2,12 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Catalog } from "@/components/catalog/Catalog";
 import { serverApiClient } from "@/lib/server-api";
+import { CatalogParams, SearchParams } from "@/types";
 
 export const generateMetadata = async ({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: CatalogParams;
 }): Promise<Metadata> => {
   const t = await getTranslations("catalog");
   const { slug } = await params;
@@ -42,13 +43,18 @@ export const generateMetadata = async ({
   return { title: t("title"), description: t("description") };
 };
 
-const CategoryPage = async ({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) => {
+type Props = {
+  searchParams: SearchParams;
+  params: CatalogParams;
+};
+
+const CategoryPage = async ({ params, searchParams }: Props) => {
   const { slug } = await params;
-  return <Catalog slug={slug} />;
+  const paramsSearch = await searchParams;
+
+  const page = paramsSearch?.page ? Number(paramsSearch.page) : 1;
+  const limit = paramsSearch?.limit ? Number(paramsSearch.limit) : 10;
+  return <Catalog slug={slug} page={page} limit={limit} />;
 };
 
 export default CategoryPage;

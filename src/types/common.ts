@@ -56,6 +56,11 @@ export interface IInfoResponse {
   detail: string;
 }
 
+export type CatalogParams = Promise<{ slug: string }>;
+export type SearchParams = Promise<{
+  [key: string]: string | string[] | undefined;
+}>;
+
 export type IApiResponse<T> = {
   total: number;
   page: number;

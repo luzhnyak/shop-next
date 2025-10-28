@@ -4,15 +4,15 @@ import { getTranslations } from "next-intl/server";
 import { AdminPanel } from "@/components/admin/AdminPanel";
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const t = await getTranslations("company");
+  const t = await getTranslations("admin");
 
   return {
-    title: t("titleCompanies"),
+    title: t("titleAdminPanel"),
   };
 };
 
-const AdminPage = () => {
+const AdminPanelPage = () => {
   return <AdminPanel />;
 };
 
-export default AdminPage;
+export default AdminPanelPage;

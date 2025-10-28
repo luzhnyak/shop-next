@@ -1,4 +1,8 @@
 {
+    "common": {
+        "name": "Shop",
+        "description": "Shop of products"
+    },
     "hello": {
         "title": "Вітаємо у PromConcept!",
         "message": "FastAPI і React з Material-UI.",
@@ -27,7 +31,6 @@
         "logoutConfirmMessage": "Ви впевнені, що хочете вийти?",
         "leaveConfirmTitle": "Покинути",
         "cancelConfirmTitle": "Відхилити",
-        "leaveCompanyConfirmMessage": "Ви хочете залишити цю компанію?",
         "deleteUserConfirmMessage": "Ви впевнені, що хочете видалити цього користувача?",
         "deleteAdminConfirmMessage": "Ви впевнені, що хочете видалити цього адміністратора?",
         "cancelInviteConfirmMessage": "Ви впевнені, що хочете відхилити це запрошення?",
@@ -56,29 +59,6 @@
         "validationPasswordMinLength": "Пароль має містити принаймні 6 символів",
         "validationFirstNameRequired": "Ім'я є обов'язковим",
         "validationLastNameRequired": "Прізвище є обов'язковим"
-    },
-    "company": {
-        "titleCompany": "Компанія",
-        "titleCompanies": "Компанії",
-        "titleAvialableCompanies": "Доступні компанії",
-        "titleEditCompany": "Редагування компанії",
-        "titleCreateCompany": "Створення компанії",
-        "titleMembers": "Члени компанії",
-        "titleAdmins": "Адміністратори компанії",
-        "titleInvitations": "Запрошення на вступ",
-        "titleRequests": "Запити на вступ",
-        "btnJoin": "Приєднатися",
-        "btnJoined": "Запит надіслано",
-        "name": "Назва",
-        "description": "Опис",
-        "visibility": "Видимість компанії",
-        "errorLoadingCompany": "Не вдалося завантажити компанію",
-        "companyNotFound": "Компанія не знайдена",
-        "validationNameRequired": "Назва компанії є обов'язковою",
-        "validationDescriptionRequired": "Опис компанії є обов'язковим",
-        "tabMembers": "Учасники",
-        "tabInvites": "Запрошення",
-        "tabQuizzes": "Тести"
     },
     "category": {
         "titleCategory": "Категорія",
@@ -115,6 +95,12 @@
     "catalog": {
         "title": "Каталог",
         "description": "Каталог продукції"
+    },
+    "admin": {
+        "titleAdminPanel": "Адмін-панель",
+        "titleAdminPanelUsers": "Користувачі",
+        "titleAdminPanelProducts": "Продукти",
+        "titleAdminPanelCategories": "Категорії"
     },
     "user": {
         "titleUser": "Користувач",

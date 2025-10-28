@@ -64,7 +64,7 @@ export const ResponsiveAdminAppBar = () => {
               cursor: "pointer",
             }}
           >
-            {"PromConcept"}
+            {t("common.name")}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -123,7 +123,7 @@ export const ResponsiveAdminAppBar = () => {
               cursor: "pointer",
             }}
           >
-            {"PromConcept"}
+            {t("common.name")}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {adminPages.map((page) => (
