@@ -17,6 +17,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
+import { Radio, RadioGroup, FormControlLabel } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useTranslations } from "next-intl";
@@ -33,6 +34,12 @@ interface ProductOption {
   name: string;
   value: string;
   additional_price?: number;
+}
+
+interface ProductImage {
+  id?: number;
+  image_url: string;
+  is_main: boolean;
 }
 
 interface ProductFormData {
@@ -54,6 +61,7 @@ interface ProductEditFormProps {
     stock_quantity: number;
     category_id: number;
     options?: ProductOption[];
+    images?: ProductImage[];
   };
   setIsOpenModal: (isOpen: boolean) => void;
 }
@@ -71,6 +79,10 @@ export const ProductEditForm = ({
 
   const [options, setOptions] = useState<ProductOption[]>(
     initialData?.options || []
+  );
+
+  const [images, setImages] = useState<ProductImage[]>(
+    initialData?.images || []
   );
 
   const t = useTranslations();
@@ -111,6 +123,25 @@ export const ProductEditForm = ({
     setOptions(updatedOptions);
   };
 
+  const addImage = () => {
+    setImages([...images, { image_url: "", is_main: false }]);
+  };
+
+  const removeImage = (index: number) => {
+    setImages(images.filter((_, i) => i !== index));
+  };
+
+  const updateImage = (
+    index: number,
+    field: keyof ProductImage,
+    value: string
+  ) => {
+    const updatedImages = images.map((image, i) =>
+      i === index ? { ...image, [field]: value } : image
+    );
+    setImages(updatedImages);
+  };
+
   const onSubmit = async (data: {
     name: string;
     description: string;
@@ -128,6 +159,13 @@ export const ProductEditForm = ({
           name: option.name,
           value: option.value,
           additional_price: option.additional_price || 0,
+        })),
+      images: images
+        .filter((image) => image.image_url.trim() && image.is_main)
+        .map((image) => ({
+          id: image.id || 0,
+          image_url: image.image_url,
+          is_main: image.is_main,
         })),
     };
 
@@ -260,6 +298,64 @@ export const ProductEditForm = ({
             >
               Додати опцію
             </Button>
+          </Box>
+
+          {/* Зображення продукту */}
+          <Box>
+            <Typography variant="h6" gutterBottom>
+              Зображення продукту
+            </Typography>
+
+            <RadioGroup
+              value={images.findIndex((img) => img.is_main) ?? -1}
+              onChange={(_, value) => {
+                const selectedIndex = parseInt(value, 10);
+                const updatedImages = images.map((img, i) => ({
+                  ...img,
+                  is_main: i === selectedIndex,
+                }));
+                setImages(updatedImages);
+              }}
+            >
+              {images.map((image, index) => (
+                <Card key={index} sx={{ mb: 2 }}>
+                  <CardContent>
+                    <Stack direction="row" spacing={2} alignItems="center">
+                      <TextField
+                        label="URL зображення"
+                        value={image.image_url}
+                        onChange={(e) =>
+                          updateImage(index, "image_url", e.target.value)
+                        }
+                        size="small"
+                        sx={{ flex: 1 }}
+                      />
+                      <FormControlLabel
+                        value={index}
+                        control={<Radio color="primary" />}
+                        label="Головне"
+                      />
+
+                      <IconButton
+                        onClick={() => removeImage(index)}
+                        color="error"
+                        size="small"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              ))}
+              <Button
+                onClick={addImage}
+                variant="outlined"
+                startIcon={<AddIcon />}
+                size="small"
+              >
+                Додати зображення
+              </Button>
+            </RadioGroup>
           </Box>
 
           <Button
