@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 
 import { useGetProductByIdQuery } from "@/redux/products/productsApi";
-import { ProductEditBtn } from "@/components/product";
+import { ProductEditBtn } from "@/components/admin/product";
 
 export const ProductDetails = () => {
   const params = useParams();

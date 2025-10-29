@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSelector } from "react-redux";
-import { useParams, useRouter, notFound } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -15,29 +15,16 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 
-import {
-  useDeleteUserMutation,
-  useGetUserByIdQuery,
-} from "../../redux/users/usersApi";
+import { useDeleteUserMutation } from "../../../redux/users/usersApi";
 import { selectCurrentUser } from "@/redux/auth/authSelectors";
 
-import { Popconfirm } from "../ui/Popconfirm";
-import { toast } from "react-toastify";
+import { Popconfirm } from "../../ui/Popconfirm";
 import { Routes } from "@/types";
-import { Modal } from "../ui/Modal/Modal";
-import { UserEditForm } from "@/components/user";
+import { Modal } from "../../ui/Modal/Modal";
+import { UserEditForm } from "@/components/admin/user";
 
-export const UserDetails = () => {
-  const params = useParams();
+export const UserProfile = () => {
   const currentUser = useSelector(selectCurrentUser)!;
-
-  const userId = Number(params.id);
-
-  if (isNaN(userId)) {
-    notFound();
-  }
-
-  const { data: user, error } = useGetUserByIdQuery(userId);
 
   const [deleteUser, { isLoading: isDeleting, isSuccess: isDeleted }] =
     useDeleteUserMutation();
@@ -51,19 +38,16 @@ export const UserDetails = () => {
   };
 
   const handleDelete = () => {
-    deleteUser(userId!);
+    deleteUser(currentUser.id!);
   };
 
   useEffect(() => {
     if (isDeleted) router.push(Routes.USERS);
   }, [isDeleted, router]);
 
-  useEffect(() => {
-    if (error) toast.error(t("user.errorLoadingUser"));
-  }, [error, t, toast]);
-
-  if (!user)
-    return <Typography align="center">{t("user.userNotFound")}</Typography>;
+  if (!currentUser) {
+    return null;
+  }
 
   return (
     <Box>
@@ -74,14 +58,14 @@ export const UserDetails = () => {
         <Avatar
           sx={{ width: 100, height: 100, mx: "auto" }}
           src={"/avatar.png"}
-          alt={user.first_name}
+          alt={currentUser.first_name}
         />
         <CardContent>
           <Typography variant="h5">
-            {user.first_name} {user.last_name}
+            {currentUser.first_name} {currentUser.last_name}
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            {user.email}
+            {currentUser.email}
           </Typography>
 
           <Stack
@@ -120,7 +104,15 @@ export const UserDetails = () => {
       </Card>
       <Box>
         <Modal isOpenModal={isEditModalOpen} setOpenModal={setIsEditModalOpen}>
-          <UserEditForm userId={userId} setIsOpenModal={setIsEditModalOpen} />
+          <UserEditForm
+            userId={currentUser.id!}
+            initialData={{
+              first_name: currentUser.first_name,
+              last_name: currentUser.last_name,
+              email: currentUser.email,
+            }}
+            setIsOpenModal={setIsEditModalOpen}
+          />
         </Modal>
       </Box>
     </Box>

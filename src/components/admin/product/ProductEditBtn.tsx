@@ -2,13 +2,13 @@
 
 import { Delete, Edit } from "@mui/icons-material";
 import { Box, Button, Stack } from "@mui/material";
-import { Popconfirm } from "../ui/Popconfirm";
+import { Popconfirm } from "../../ui/Popconfirm";
 // import { ProductVisibilityToggle } from "./ProductVisibilityToggle";
 import { useDeleteProductMutation } from "@/redux/products/productsApi";
 import { useEffect, useState } from "react";
 import { IProduct, Routes } from "@/types";
 import { ProductEditForm } from "./ProductEditForm";
-import { Modal } from "../ui/Modal/Modal";
+import { Modal } from "../../ui/Modal/Modal";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 

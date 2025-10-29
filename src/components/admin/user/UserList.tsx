@@ -14,7 +14,7 @@ import { useUpdateSearchParams } from "@/hooks/updateSearchParams";
 import { CustomTable } from "@/components/ui/CustomTable";
 import { CustomTablePagination } from "@/components/ui/CustomTablePagination";
 import { Action } from "@/components/ui/TableActionsBtn";
-import { Modal } from "../ui/Modal/Modal";
+import { Modal } from "../../ui/Modal/Modal";
 import { useState } from "react";
 import { UserEditForm } from "./UserEditForm";
 

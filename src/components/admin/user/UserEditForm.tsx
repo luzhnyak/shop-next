@@ -9,7 +9,7 @@ import {
   useCreateUserMutation,
   useGetUserByIdQuery,
   useUpdateUserMutation,
-} from "../../redux/users/usersApi";
+} from "../../../redux/users/usersApi";
 import { useUserUpdateSchema } from "@/schemas/user";
 import { useEffect } from "react";
 import { toast } from "react-toastify";

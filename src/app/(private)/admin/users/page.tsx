@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { UserList } from "@/components/user";
+import { UserList } from "@/components/admin/user";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("user");

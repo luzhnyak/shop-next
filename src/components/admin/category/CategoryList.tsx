@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CustomTable } from "../ui/CustomTable";
+import { CustomTable } from "../../ui/CustomTable";
 import { useTranslations } from "next-intl";
 import { Typography, Box, Button } from "@mui/material";
 import { Add, Delete, Edit, Visibility } from "@mui/icons-material";

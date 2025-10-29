@@ -1,4 +1,4 @@
-import { ProductDetails } from "@/components/product";
+import { ProductDetails } from "@/components/admin/product";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
