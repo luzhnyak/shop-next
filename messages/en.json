@@ -91,7 +91,9 @@
         "validationStockQuantityRequired": "Stock Quantity is required",
         "validationCategoryIdRequired": "Category ID is required",
         "errorLoadingProduct": "Error loading product",
-        "productNotFound": "Product not found"
+        "productNotFound": "Product not found",
+        "importTitle": "Import products",
+        "exportTitle": "Export products"
     },
     "catalog": {
         "title": "Catalog",
@@ -156,6 +158,9 @@
         "btnSaving": "Saving...",
         "btnAccept": "Accept",
         "btnLeave": "Leave",
-        "btnJoin": "Join"
+        "btnJoin": "Join",
+        "btnImport": "Import",
+        "btnExport": "Export",
+        "btnDownload": "Download"
     }
 }

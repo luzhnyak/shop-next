@@ -357,17 +357,21 @@ export const ProductEditForm = ({
               </Button>
             </RadioGroup>
           </Box>
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={isCreating || isUpdating}
-          >
-            {isCreating || isUpdating
-              ? t("actions.btnSaving")
-              : t("actions.btnSave")}
-          </Button>
+          <Stack direction="row" spacing={2} justifyContent="end">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isCreating || isUpdating}
+            >
+              {isCreating || isUpdating
+                ? t("actions.btnSaving")
+                : t("actions.btnSave")}
+            </Button>
+            <Button variant="outlined" onClick={() => setIsOpenModal(false)}>
+              {t("actions.btnCancel")}
+            </Button>
+          </Stack>
         </Stack>
       </form>
     </Box>

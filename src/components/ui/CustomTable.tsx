@@ -17,6 +17,7 @@ import { Action, TableActionsBtn } from "./TableActionsBtn";
 export interface Column<T> {
   id: keyof T;
   label: string;
+  maxLength?: number;
 }
 
 interface Props<T extends { id: number }> {
@@ -31,6 +32,17 @@ export const CustomTable = <T extends { id: number }>({
   actions,
 }: Props<T>) => {
   const t = useTranslations("paginatedTable");
+
+  const truncate = (value: ReactNode, maxLength?: number): ReactNode => {
+    if (
+      typeof value === "string" &&
+      typeof maxLength === "number" &&
+      value.length > maxLength
+    ) {
+      return value.slice(0, maxLength) + "...";
+    }
+    return value;
+  };
 
   return (
     <Paper
@@ -55,7 +67,7 @@ export const CustomTable = <T extends { id: number }>({
                 <TableRow key={row.id}>
                   {columns.map((column) => (
                     <TableCell key={String(column.id)}>
-                      {row[column.id] as ReactNode}
+                      {truncate(row[column.id] as ReactNode, column.maxLength)}
                     </TableCell>
                   ))}
                   {actions && (

@@ -90,7 +90,9 @@
         "validationStockQuantityRequired": "Кількість на складі є обов'язковою",
         "validationCategoryIdRequired": "ID категорії є обов'язковим",
         "errorLoadingProduct": "Не вдалося завантажити продукт",
-        "productNotFound": "Продукт не знайдений"
+        "productNotFound": "Продукт не знайдений",
+        "importTitle": "Імпорт продуктів",
+        "exportTitle": "Експорт продуктів"
     },
     "catalog": {
         "title": "Каталог",
@@ -155,6 +157,9 @@
         "btnSaving": "Збереження...",
         "btnAccept": "Підтвердити",
         "btnLeave": "Покинути",
-        "btnJoin": "Приєднатися"
+        "btnJoin": "Приєднатися",
+        "btnImport": "Імпорт",
+        "btnExport": "Експорт",
+        "btnDownload": "Завантажити"
     }
 }

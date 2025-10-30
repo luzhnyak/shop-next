@@ -2,10 +2,17 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CustomTable } from "../../ui/CustomTable";
+import { Column, CustomTable } from "../../ui/CustomTable";
 import { useTranslations } from "next-intl";
 import { Typography, Box, Button } from "@mui/material";
-import { Add, Delete, Edit, Visibility } from "@mui/icons-material";
+import {
+  Add,
+  Delete,
+  Edit,
+  Visibility,
+  Upload,
+  Download,
+} from "@mui/icons-material";
 
 import { ColorBtn, IProduct, Routes } from "@/types";
 import {
@@ -17,9 +24,13 @@ import { CustomTablePagination } from "@/components/ui/CustomTablePagination";
 import { Modal } from "@/components/ui/Modal/Modal";
 import { Action } from "@/components/ui/TableActionsBtn";
 import { ProductEditForm } from "@/components/admin/product";
+import { ImportProductsForm } from "./ImportProductsForm";
+import { ExportProductsForm } from "./ExportProductsForm";
 
 export const ProductList = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
+  const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
   const [productId, setProductId] = useState<number>(0);
 
   const searchParams = useSearchParams();
@@ -37,10 +48,10 @@ export const ProductList = () => {
   const t = useTranslations();
   const router = useRouter();
 
-  const columns: { id: keyof IProduct; label: string }[] = [
+  const columns: Column<IProduct>[] = [
     { id: "id", label: "ID" },
     { id: "name", label: t("product.name") },
-    { id: "description", label: t("product.description") },
+    { id: "description", label: t("product.description"), maxLength: 80 },
   ];
 
   const actions: Action<IProduct>[] = [
@@ -83,14 +94,32 @@ export const ProductList = () => {
       <Typography variant="h4" gutterBottom>
         {t("product.titleProducts")}
       </Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<Add />}
-        onClick={handleCreate}
-      >
-        {t("actions.btnCreate")}
-      </Button>
+      <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<Add />}
+          onClick={handleCreate}
+        >
+          {t("actions.btnCreate")}
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          startIcon={<Upload />}
+          onClick={() => setIsImportModalOpen(true)}
+        >
+          {t("actions.btnImport")}
+        </Button>
+        <Button
+          variant="contained"
+          color="info"
+          startIcon={<Download />}
+          onClick={() => setIsExportModalOpen(true)}
+        >
+          {t("actions.btnExport")}
+        </Button>
+      </Box>
       <CustomTable
         columns={columns}
         items={data?.items || []}
@@ -118,6 +147,18 @@ export const ProductList = () => {
         ) : (
           <ProductEditForm setIsOpenModal={setIsCreateModalOpen} />
         )}
+      </Modal>
+      <Modal
+        isOpenModal={isImportModalOpen}
+        setOpenModal={setIsImportModalOpen}
+      >
+        <ImportProductsForm setIsOpenModal={setIsImportModalOpen} />
+      </Modal>
+      <Modal
+        isOpenModal={isExportModalOpen}
+        setOpenModal={setIsExportModalOpen}
+      >
+        <ExportProductsForm setIsOpenModal={setIsExportModalOpen} />
       </Modal>
     </Box>
   );

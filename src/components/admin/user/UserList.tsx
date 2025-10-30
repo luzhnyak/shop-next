@@ -11,7 +11,7 @@ import {
   useGetUsersQuery,
 } from "@/redux/users/usersApi";
 import { useUpdateSearchParams } from "@/hooks/updateSearchParams";
-import { CustomTable } from "@/components/ui/CustomTable";
+import { Column, CustomTable } from "@/components/ui/CustomTable";
 import { CustomTablePagination } from "@/components/ui/CustomTablePagination";
 import { Action } from "@/components/ui/TableActionsBtn";
 import { Modal } from "../../ui/Modal/Modal";
@@ -36,7 +36,7 @@ export const UserList = () => {
   const t = useTranslations();
   const router = useRouter();
 
-  const columns: { id: keyof IUser; label: string }[] = [
+  const columns: Column<IUser>[] = [
     { id: "id", label: "ID" },
     { id: "first_name", label: t("user.firstName") },
     { id: "last_name", label: t("user.lastName") },

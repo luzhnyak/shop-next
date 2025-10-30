@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CustomTable } from "../../ui/CustomTable";
+import { Column, CustomTable } from "../../ui/CustomTable";
 import { useTranslations } from "next-intl";
 import { Typography, Box, Button } from "@mui/material";
 import { Add, Delete, Edit, Visibility } from "@mui/icons-material";
@@ -37,10 +37,10 @@ export const CategoryList = () => {
   const t = useTranslations();
   const router = useRouter();
 
-  const columns: { id: keyof ICategory; label: string }[] = [
+  const columns: Column<ICategory>[] = [
     { id: "id", label: "ID" },
     { id: "name", label: t("category.name") },
-    { id: "description", label: t("category.description") },
+    { id: "description", label: t("category.description"), maxLength: 50 },
   ];
 
   const actions: Action<ICategory>[] = [
