@@ -22,7 +22,13 @@
         "profile": "Profile",
         "signIn": "Sign In",
         "logout": "Logout",
-        "admin": "Admin"
+        "admin": "Admin",
+        "cart": "Cart"
+    },
+    "cart": {
+        "emptyMessage": "Your cart is empty.",
+        "total": "Total",
+        "checkout": "Checkout"
     },
     "dialog": {
         "deleteConfirmTitle": "Delete",

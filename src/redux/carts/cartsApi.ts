@@ -15,9 +15,9 @@ export const cartsApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ["Cart", "Carts"],
   endpoints: (builder) => ({
-    getCartById: builder.query<ICart, number>({
-      query: (id) => ({
-        url: `/carts/${id}`,
+    getCartByUserId: builder.query<ICart, number>({
+      query: (userId) => ({
+        url: `/carts/${userId}`,
         method: HTTPMethods.GET,
       }),
       providesTags: (result, error, id) => [{ type: "Cart", id }],
@@ -61,7 +61,7 @@ export const cartsApi = createApi({
 });
 
 export const {
-  useGetCartByIdQuery,
+  useGetCartByUserIdQuery,
   useGetCartsQuery,
   useCreateCartMutation,
   useUpdateCartMutation,

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 import {
   Avatar,
+  Badge,
   Box,
   Divider,
   IconButton,
@@ -27,12 +28,16 @@ import { useAuthLogout } from "@/hooks/useAuthLogout";
 import { settings } from "@/constants/navigation";
 import { Routes } from "@/types";
 import { Popconfirm } from "../ui/Popconfirm";
+import { ShoppingCart } from "@mui/icons-material";
+import { CartDrawer } from "./CartDrawer";
 
 export const UserMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [cartOpen, setCartOpen] = useState(false);
 
   const currentUser = useSelector(selectCurrentUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const cartCount = 3;
 
   const logout = useAuthLogout();
   const t = useTranslations();
@@ -61,6 +66,17 @@ export const UserMenu = () => {
       sx={{ flexGrow: 1 }}
     >
       <LanguageSwitcher />
+
+      {/* CART BUTTON */}
+      <Tooltip title={t("navigation.cart")}>
+        <IconButton color="inherit" onClick={() => setCartOpen(true)}>
+          <Badge badgeContent={cartCount} color="primary">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+      </Tooltip>
+
+      {/* USER MENU */}
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -124,6 +140,8 @@ export const UserMenu = () => {
           )}
         </Menu>
       </Box>
+      {/* CART DRAWER */}
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </Stack>
   );
 };

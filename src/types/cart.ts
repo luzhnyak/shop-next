@@ -11,9 +11,16 @@ export interface ICartUpdate extends ICartBase {
   id: number;
 }
 
+export interface ICartItem {
+  product_id: number;
+  quantity: number;
+  product_name: string;
+  price: number;
+}
+
 export interface ICart extends ICartBase {
   id: number;
-  items: Array<{ product_id: number; quantity: number }>;
+  items: Array<ICartItem>;
 }
 
 export interface IAddToCart {

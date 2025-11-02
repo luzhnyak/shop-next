@@ -22,7 +22,13 @@
         "profile": "Профіль",
         "signIn": "Увійти",
         "logout": "Вийти",
-        "admin": "Адмін-панель"
+        "admin": "Адмін-панель",
+        "cart": "Кошик"
+    },
+    "cart": {
+        "emptyMessage": "Ваш кошик порожній.",
+        "total": "Всього",
+        "checkout": "Оформити замовлення"
     },
     "dialog": {
         "deleteConfirmTitle": "Видалити",
