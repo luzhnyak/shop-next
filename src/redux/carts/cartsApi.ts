@@ -6,8 +6,8 @@ import {
   ICart,
   HTTPMethods,
   ApiParams,
-  ICartCreate,
   ICartUpdate,
+  IAddToCart,
 } from "../../types";
 
 export const cartsApi = createApi({
@@ -31,13 +31,15 @@ export const cartsApi = createApi({
       providesTags: (result) =>
         result ? [{ type: "Carts", id: "LIST" }] : ["Carts"],
     }),
-    createCart: builder.mutation<ICart, ICartCreate>({
+    addToCart: builder.mutation<ICart, IAddToCart>({
       query: (body) => ({
         method: HTTPMethods.POST,
-        url: "/carts",
+        url: `/carts/${body.userId}`,
         body: body,
       }),
-      invalidatesTags: [{ type: "Carts", id: "LIST" }],
+      invalidatesTags: (result, error, { userId }) => [
+        { type: "Cart", userId: userId },
+      ],
     }),
     updateCart: builder.mutation<ICart, ICartUpdate>({
       query: (body) => ({
@@ -63,7 +65,7 @@ export const cartsApi = createApi({
 export const {
   useGetCartByUserIdQuery,
   useGetCartsQuery,
-  useCreateCartMutation,
+  useAddToCartMutation,
   useUpdateCartMutation,
   useDeleteCartMutation,
 } = cartsApi;

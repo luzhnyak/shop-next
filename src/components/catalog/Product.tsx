@@ -1,19 +1,16 @@
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { FavoriteBorder } from "@mui/icons-material";
 import {
   Box,
   Typography,
   Card,
-  CardContent,
   CardMedia,
   Chip,
   Stack,
   Divider,
-  Button,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { serverApiClient } from "@/lib/server-api";
 import { IProduct } from "@/types";
+import { ProductActionsButtons } from "./ProductActionsButtons";
 
 interface ProductProps {
   product: IProduct;
@@ -144,28 +141,7 @@ export const Product = async ({ product }: ProductProps) => {
                 </Box>
               )}
             </Stack>
-
-            <Box sx={{ mt: 3 }}>
-              <Button
-                variant="contained"
-                size="large"
-                disabled={product.stock_quantity === 0}
-                sx={{ mr: 2 }}
-                startIcon={<ShoppingCartIcon />}
-              >
-                {product.stock_quantity > 0
-                  ? "Додати до кошика"
-                  : "Немає в наявності"}
-              </Button>
-
-              <Button
-                variant="outlined"
-                size="large"
-                startIcon={<FavoriteBorder />}
-              >
-                Додати до улюблених
-              </Button>
-            </Box>
+            <ProductActionsButtons product={product} />
           </Box>
         </Grid>
       </Grid>

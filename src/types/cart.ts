@@ -24,6 +24,7 @@ export interface ICart extends ICartBase {
 }
 
 export interface IAddToCart {
+  userId: number;
   product_id: number;
   quantity: number;
 }
