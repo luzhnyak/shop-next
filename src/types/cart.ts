@@ -18,6 +18,11 @@ export interface ICartItem {
   price: number;
 }
 
+export interface UpdateCartItemPayload {
+  id: number;
+  quantity: number;
+}
+
 export interface ICart extends ICartBase {
   id: number;
   items: Array<ICartItem>;

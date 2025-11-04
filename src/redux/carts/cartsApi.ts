@@ -8,6 +8,7 @@ import {
   ApiParams,
   ICartUpdate,
   IAddToCart,
+  UpdateCartItemPayload,
 } from "../../types";
 
 export const cartsApi = createApi({
@@ -41,6 +42,24 @@ export const cartsApi = createApi({
         { type: "Cart", userId: userId },
       ],
     }),
+    /** 🔹 Оновлення кількості товару в кошику */
+    updateCartItem: builder.mutation<ICart, UpdateCartItemPayload>({
+      query: ({ id, quantity }) => ({
+        url: `/items/${id}`,
+        method: "PATCH",
+        body: { quantity },
+      }),
+      invalidatesTags: ["Cart"],
+    }),
+
+    /** 🔹 Видалення товару з кошика */
+    deleteCartItem: builder.mutation<void, number>({
+      query: (id) => ({
+        url: `/items/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Cart"],
+    }),
     updateCart: builder.mutation<ICart, ICartUpdate>({
       query: (body) => ({
         method: HTTPMethods.PUT,
@@ -66,6 +85,8 @@ export const {
   useGetCartByUserIdQuery,
   useGetCartsQuery,
   useAddToCartMutation,
+  useUpdateCartItemMutation,
+  useDeleteCartItemMutation,
   useUpdateCartMutation,
   useDeleteCartMutation,
 } = cartsApi;

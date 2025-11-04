@@ -30,14 +30,16 @@ import { Routes } from "@/types";
 import { Popconfirm } from "../ui/Popconfirm";
 import { ShoppingCart } from "@mui/icons-material";
 import { CartDrawer } from "./CartDrawer";
+import { useGetCartByUserIdQuery } from "@/redux/carts/cartsApi";
 
 export const UserMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [cartOpen, setCartOpen] = useState(false);
 
   const currentUser = useSelector(selectCurrentUser);
+  const { data, error } = useGetCartByUserIdQuery(currentUser?.id || 1);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const cartCount = 3;
+  const cartCount = data?.items.length || 0;
 
   const logout = useAuthLogout();
   const t = useTranslations();
