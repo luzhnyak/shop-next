@@ -18,12 +18,15 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useSelector } from "react-redux";
 import {
-  useGetCartByUserIdQuery,
+  useGetMyCartQuery,
   useUpdateCartItemMutation,
   useDeleteCartItemMutation,
+  useClearCartMutation,
 } from "@/redux/carts/cartsApi";
 import { selectCurrentUser } from "@/redux/auth/authSelectors";
 import { useState } from "react";
+import { Check, CleaningServices } from "@mui/icons-material";
+import { Popconfirm } from "../ui/Popconfirm";
 
 interface CartDrawerProps {
   open: boolean;
@@ -35,9 +38,10 @@ export const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
   const currentUser = useSelector(selectCurrentUser);
 
   // RTK Query hooks
-  const { data, refetch } = useGetCartByUserIdQuery(currentUser?.id || 1);
+  const { data, refetch } = useGetMyCartQuery();
   const [updateCartItem] = useUpdateCartItemMutation();
   const [deleteCartItem] = useDeleteCartItemMutation();
+  const [clearCart] = useClearCartMutation();
 
   // зберігаємо локально введені кількості, щоб не оновлювати сервер при кожному вводі
   const [quantities, setQuantities] = useState<Record<number, number>>({});
@@ -59,6 +63,12 @@ export const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
   // 🔹 Видалити продукт
   const handleRemoveItem = async (itemId: number) => {
     await deleteCartItem(itemId);
+    refetch();
+  };
+
+  // 🔹 Очистити всю корзину
+  const handleClearCart = async () => {
+    await clearCart();
     refetch();
   };
 
@@ -181,13 +191,19 @@ export const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
                   <Typography fontWeight={500}>
                     {(item.price * item.quantity).toFixed(2)} ₴
                   </Typography>
-                  <IconButton
-                    color="error"
-                    size="small"
-                    onClick={() => handleRemoveItem(item.id)}
+                  <Popconfirm
+                    title={t("cart.removeItem")}
+                    description={t("cart.removeItemConfirm")}
+                    onConfirm={() => handleRemoveItem(item.id)}
                   >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
+                    <IconButton
+                      color="error"
+                      size="small"
+                      onClick={() => handleRemoveItem(item.id)}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </Popconfirm>
                 </Stack>
               </Box>
             );
@@ -199,9 +215,25 @@ export const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
             {t("cart.total")}: {total.toFixed(2)} ₴
           </Typography>
 
-          <Button variant="contained" fullWidth sx={{ mt: 2 }}>
-            {t("cart.checkout")}
-          </Button>
+          <Stack direction="row" spacing={1} mt={2}>
+            <Popconfirm
+              title={t("cart.clearCart")}
+              description={t("cart.clearConfirm")}
+              onConfirm={handleClearCart}
+            >
+              <Button
+                variant="outlined"
+                color="error"
+                startIcon={<CleaningServices />}
+                fullWidth
+              >
+                {t("cart.clearCart")}
+              </Button>
+            </Popconfirm>
+            <Button variant="contained" startIcon={<Check />} fullWidth>
+              {t("cart.checkout")}
+            </Button>
+          </Stack>
         </Stack>
       )}
     </Drawer>

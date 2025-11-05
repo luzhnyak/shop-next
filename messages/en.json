@@ -28,7 +28,11 @@
     "cart": {
         "emptyMessage": "Your cart is empty.",
         "total": "Total",
-        "checkout": "Checkout"
+        "checkout": "Checkout",
+        "clearCart": "Clear Cart",
+        "clearConfirm": "Clear entire cart?",
+        "removeItem": "Remove item",
+        "removeItemConfirm": "Are you sure you want to remove this item from the cart?"
     },
     "dialog": {
         "deleteConfirmTitle": "Delete",

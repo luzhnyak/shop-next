@@ -16,12 +16,12 @@ export const cartsApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ["Cart", "Carts"],
   endpoints: (builder) => ({
-    getCartByUserId: builder.query<ICart, number>({
-      query: (userId) => ({
-        url: `/carts/${userId}`,
+    getMyCart: builder.query<ICart, void>({
+      query: () => ({
+        url: `/carts/my`,
         method: HTTPMethods.GET,
       }),
-      providesTags: (result, error, id) => [{ type: "Cart", id }],
+      providesTags: ["Cart"],
     }),
     getCarts: builder.query<IApiResponse<ICart>, ApiParams>({
       query: (params) => ({
@@ -35,7 +35,7 @@ export const cartsApi = createApi({
     addToCart: builder.mutation<ICart, IAddToCart>({
       query: (body) => ({
         method: HTTPMethods.POST,
-        url: `/carts/${body.userId}`,
+        url: `/carts/my/items`,
         body: body,
       }),
       invalidatesTags: (result, error, { userId }) => [
@@ -45,7 +45,7 @@ export const cartsApi = createApi({
     /** 🔹 Оновлення кількості товару в кошику */
     updateCartItem: builder.mutation<ICart, UpdateCartItemPayload>({
       query: ({ id, quantity }) => ({
-        url: `/items/${id}`,
+        url: `/carts/my/items/${id}`,
         method: "PATCH",
         body: { quantity },
       }),
@@ -55,7 +55,14 @@ export const cartsApi = createApi({
     /** 🔹 Видалення товару з кошика */
     deleteCartItem: builder.mutation<void, number>({
       query: (id) => ({
-        url: `/items/${id}`,
+        url: `/carts/my/items/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Cart"],
+    }),
+    clearCart: builder.mutation<void, void>({
+      query: () => ({
+        url: `/carts/my/clear`,
         method: "DELETE",
       }),
       invalidatesTags: ["Cart"],
@@ -82,11 +89,12 @@ export const cartsApi = createApi({
 });
 
 export const {
-  useGetCartByUserIdQuery,
+  useGetMyCartQuery,
   useGetCartsQuery,
   useAddToCartMutation,
   useUpdateCartItemMutation,
   useDeleteCartItemMutation,
+  useClearCartMutation,
   useUpdateCartMutation,
   useDeleteCartMutation,
 } = cartsApi;

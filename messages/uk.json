@@ -28,7 +28,11 @@
     "cart": {
         "emptyMessage": "Ваш кошик порожній.",
         "total": "Всього",
-        "checkout": "Оформити замовлення"
+        "checkout": "Оформити замовлення",
+        "clearCart": "Очистити кошик",
+        "clearConfirm": "Очистити весь кошик?",
+        "removeItem": "Видалити товар",
+        "removeItemConfirm": "Ви впевнені, що хочете видалити цей товар з кошика?"
     },
     "dialog": {
         "deleteConfirmTitle": "Видалити",
