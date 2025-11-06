@@ -17,6 +17,7 @@
         "contacts": "Контакти",
         "users": "Користувачі",
         "products": "Продукти",
+        "orders": "Замовлення",
         "categories": "Категорії",
         "catalog": "Каталог",
         "profile": "Профіль",
@@ -126,6 +127,17 @@
         "password": "Пароль",
         "errorLoadingUser": "Не вдалося завантажити користувача",
         "userNotFound": "Користувач не знайдений"
+    },
+    "order": {
+        "titleOrders": "Замовлення",
+        "orderId": "ID замовлення",
+        "userId": "ID користувача",
+        "status": "Статус",
+        "totalAmount": "Сума",
+        "createdAt": "Дата створення",
+        "updatedAt": "Дата оновлення",
+        "orderNotFound": "Замовлення не знайдено",
+        "errorLoadingOrder": "Помилка завантаження замовлення"
     },
     "about": {
         "title": "Про нас",

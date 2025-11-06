@@ -128,6 +128,17 @@
         "errorLoadingUser": "Error loading user",
         "userNotFound": "User not found"
     },
+    "order": {
+        "titleOrders": "Orders",
+        "orderId": "Order ID",
+        "userId": "User ID",
+        "status": "Status",
+        "totalAmount": "Total Amount",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "orderNotFound": "Order not found",
+        "errorLoadingOrder": "Error loading order"
+    },
     "about": {
         "title": "About Us",
         "description": "We are a Ukrainian company specializing in the production of high-quality custom-made furniture. Our goal is to create comfortable, stylish and durable furniture that fits perfectly into your interior. We combine modern production technologies with an individual approach to each client.",

@@ -3,10 +3,11 @@ export enum Routes {
   ABOUT = "/about",
   CONTACTS = "/contacts",
   CATALOG = "/catalog",
-  PRODUCTS = "/admin/products",
-  CATEGORIES = "/admin/categories",
   ADMIN = "/admin",
   USERS = "/admin/users",
+  PRODUCTS = "/admin/products",
+  CATEGORIES = "/admin/categories",
+  ORDERS = "/admin/orders",
   SIGN_IN = "/auth/login",
   PROFILE = "/profile",
 }

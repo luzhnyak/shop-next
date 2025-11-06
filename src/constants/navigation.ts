@@ -11,6 +11,7 @@ export const adminPages = [
   { nameKey: "navigation.users", route: Routes.USERS },
   { nameKey: "navigation.products", route: Routes.PRODUCTS },
   { nameKey: "navigation.categories", route: Routes.CATEGORIES },
+  { nameKey: "navigation.orders", route: Routes.ORDERS },
 ];
 
 export const settings = [
