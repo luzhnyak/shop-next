@@ -132,12 +132,19 @@
         "titleOrders": "Orders",
         "orderId": "Order ID",
         "userId": "User ID",
+        "addressId": "Address ID",
         "status": "Status",
         "totalAmount": "Total Amount",
         "createdAt": "Created At",
         "updatedAt": "Updated At",
         "orderNotFound": "Order not found",
-        "errorLoadingOrder": "Error loading order"
+        "errorLoadingOrder": "Error loading order",
+        "titleEditOrder": "Edit Order",
+        "titleCreateOrder": "Create Order",
+        "validationUserIdRequired": "ID user is required",
+        "validationAddressIdRequired": "ID address is required",
+        "validationStatusRequired": "Status is required",
+        "validationTotalAmountNumber": "Total Amount must be a number"
     },
     "about": {
         "title": "About Us",

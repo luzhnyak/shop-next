@@ -27,6 +27,7 @@ import { selectCurrentUser } from "@/redux/auth/authSelectors";
 import { useState } from "react";
 import { Check, CleaningServices } from "@mui/icons-material";
 import { Popconfirm } from "../ui/Popconfirm";
+import { useCheckoutMutation } from "@/redux/orders/ordersApi";
 
 interface CartDrawerProps {
   open: boolean;
@@ -42,6 +43,7 @@ export const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
   const [updateCartItem] = useUpdateCartItemMutation();
   const [deleteCartItem] = useDeleteCartItemMutation();
   const [clearCart] = useClearCartMutation();
+  const [checkout] = useCheckoutMutation();
 
   // зберігаємо локально введені кількості, щоб не оновлювати сервер при кожному вводі
   const [quantities, setQuantities] = useState<Record<number, number>>({});
@@ -88,6 +90,20 @@ export const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
         await handleChangeQuantity(itemId, newQuantity);
       }
     }
+  };
+
+  const handleCheckout = () => {
+    if (!currentUser) {
+      // Redirect to login or show a message
+      return;
+    }
+
+    // Call the checkout mutation
+    checkout({
+      address_id: 1, // Replace with actual address ID
+    });
+    refetch();
+    onClose();
   };
 
   return (
@@ -230,7 +246,12 @@ export const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
                 {t("cart.clearCart")}
               </Button>
             </Popconfirm>
-            <Button variant="contained" startIcon={<Check />} fullWidth>
+            <Button
+              variant="contained"
+              startIcon={<Check />}
+              fullWidth
+              onClick={handleCheckout}
+            >
               {t("cart.checkout")}
             </Button>
           </Stack>

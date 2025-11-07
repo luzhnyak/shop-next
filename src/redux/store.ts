@@ -17,6 +17,7 @@ import { usersApi } from "./users/usersApi";
 import { productsApi } from "./products/productsApi";
 import { categoriesApi } from "./categories/categoriesApi";
 import { cartsApi } from "./carts/cartsApi";
+import { ordersApi } from "./orders/ordersApi";
 
 const authPersistConfig = {
   key: "auth",
@@ -34,6 +35,7 @@ export const store = configureStore({
     [productsApi.reducerPath]: productsApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [cartsApi.reducerPath]: cartsApi.reducer,
+    [ordersApi.reducerPath]: ordersApi.reducer,
   },
   middleware: (gDM) =>
     gDM({
@@ -43,9 +45,10 @@ export const store = configureStore({
     })
       .concat(authApi.middleware)
       .concat(usersApi.middleware)
-      .concat(productsApi.middleware)
       .concat(categoriesApi.middleware)
-      .concat(cartsApi.middleware),
+      .concat(productsApi.middleware)
+      .concat(cartsApi.middleware)
+      .concat(ordersApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

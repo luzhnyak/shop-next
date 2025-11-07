@@ -132,12 +132,19 @@
         "titleOrders": "Замовлення",
         "orderId": "ID замовлення",
         "userId": "ID користувача",
+        "addressId": "ID адреси",
         "status": "Статус",
         "totalAmount": "Сума",
         "createdAt": "Дата створення",
         "updatedAt": "Дата оновлення",
         "orderNotFound": "Замовлення не знайдено",
-        "errorLoadingOrder": "Помилка завантаження замовлення"
+        "errorLoadingOrder": "Помилка завантаження замовлення",
+        "titleEditOrder": "Редагування замовлення",
+        "titleCreateOrder": "Створення замовлення",
+        "validationUserIdRequired": "ID користувача є обов'язковим",
+        "validationAddressIdRequired": "ID адреси є обов'язковим",
+        "validationStatusRequired": "Статус є обов'язковим",
+        "validationTotalAmountNumber": "Сума має бути числом"
     },
     "about": {
         "title": "Про нас",

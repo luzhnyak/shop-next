@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { Typography } from "@mui/material";
+import { OrderList } from "@/components/admin/orders";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations("order");
@@ -12,7 +12,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const OrdersPage = () => {
-  return <Typography>Orders Page</Typography>;
+  return <OrderList />;
 };
 
 export default OrdersPage;
