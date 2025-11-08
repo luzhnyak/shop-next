@@ -38,11 +38,13 @@ export const OrderList = () => {
   const router = useRouter();
 
   const columns: Column<IOrder>[] = [
-    { id: "user_id", label: "User ID" },
-    { id: "address_id", label: "Address ID" },
-    // { id: "total_price", label: "Total Price" },
+    { id: "id", label: "ID" },
+    { id: "user_name", label: "User Name" },
+    // { id: "address_name", label: "Address Name" },
+
     { id: "status", label: "Status" },
-    // { id: "created_at", label: "Created At" },
+    { id: "total_price", label: "Total Price" },
+    { id: "created_at", label: "Created At" },
     // { id: "updated_at", label: "Updated At" },
   ];
 

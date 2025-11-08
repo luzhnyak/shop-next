@@ -2,7 +2,17 @@
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TextField, Button, Stack, Typography, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Stack,
+  Typography,
+  Box,
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+} from "@mui/material";
 import { useTranslations } from "next-intl";
 
 import {
@@ -10,7 +20,7 @@ import {
   useUpdateStatusOrderMutation,
 } from "@/redux/orders/ordersApi";
 
-import { IOrderCreate } from "@/types";
+import { IOrderCreate, OrderStatusEnum } from "@/types";
 import { useOrderSchema } from "@/schemas/order";
 
 interface OrderEditFormProps {
@@ -18,7 +28,7 @@ interface OrderEditFormProps {
   initialData?: {
     user_id: number;
     address_id: number;
-    status: string;
+    status: OrderStatusEnum;
   };
   setIsOpenModal: (isOpen: boolean) => void;
 }
@@ -41,20 +51,25 @@ export const OrderEditForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IOrderCreate>({
     resolver: yupResolver(schema),
     defaultValues: initialData || {
       user_id: 0,
       address_id: 0,
-      status: "",
+      status: OrderStatusEnum.pending,
     },
   });
 
   const onSubmit = async (data: IOrderCreate) => {
+    const payload = {
+      ...data,
+      status: data.status as OrderStatusEnum,
+    };
+
     if (isEditing) {
-      updateStatusOrder({ id: orderId!, ...data });
+      updateStatusOrder({ id: orderId!, ...payload });
     } else {
-      createOrder(data);
+      createOrder(payload);
     }
     setIsOpenModal(false);
   };
@@ -78,12 +93,32 @@ export const OrderEditForm = ({
             error={!!errors.address_id}
             helperText={errors.address_id?.message}
           />
-          <TextField
+
+          {/* <TextField
             label={t("order.status")}
             {...register("status")}
             error={!!errors.status}
             helperText={errors.status?.message}
-          />
+          /> */}
+          <FormControl error={!!errors.status}>
+            <InputLabel>{t("order.status")}</InputLabel>
+            <Select
+              label={t("order.status")}
+              defaultValue={initialData?.status || OrderStatusEnum.pending}
+              {...register("status")}
+            >
+              {Object.values(OrderStatusEnum).map((status) => (
+                <MenuItem key={status} value={status}>
+                  {status}
+                </MenuItem>
+              ))}
+            </Select>
+            {errors.status && (
+              <Typography variant="caption" color="error">
+                {errors.status.message}
+              </Typography>
+            )}
+          </FormControl>
           <Button
             type="submit"
             variant="contained"

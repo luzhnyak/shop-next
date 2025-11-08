@@ -144,7 +144,8 @@
         "validationUserIdRequired": "ID користувача є обов'язковим",
         "validationAddressIdRequired": "ID адреси є обов'язковим",
         "validationStatusRequired": "Статус є обов'язковим",
-        "validationTotalAmountNumber": "Сума має бути числом"
+        "validationTotalAmountNumber": "Сума має бути числом",
+        "validationStatusInvalid": "Невірний статус замовлення"
     },
     "about": {
         "title": "Про нас",

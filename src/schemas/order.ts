@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { OrderStatusEnum } from "@/types";
 
 export const useOrderSchema = () => {
   const t = useTranslations("order");
@@ -10,7 +11,10 @@ export const useOrderSchema = () => {
       yup.object().shape({
         user_id: yup.number().required(t("validationUserIdRequired")),
         address_id: yup.number().required(t("validationAddressIdRequired")),
-        status: yup.string().required(t("validationStatusRequired")),
+        status: yup
+          .mixed<OrderStatusEnum>()
+          .oneOf(Object.values(OrderStatusEnum), t("validationStatusInvalid"))
+          .required(t("validationStatusRequired")),
       }),
     [t]
   );

@@ -17,6 +17,7 @@
         "contacts": "Contacts",
         "users": "Users",
         "products": "Products",
+        "orders": "Orders",
         "categories": "Categories",
         "catalog": "Catalog",
         "profile": "Profile",
@@ -144,7 +145,8 @@
         "validationUserIdRequired": "ID user is required",
         "validationAddressIdRequired": "ID address is required",
         "validationStatusRequired": "Status is required",
-        "validationTotalAmountNumber": "Total Amount must be a number"
+        "validationTotalAmountNumber": "Total Amount must be a number",
+        "validationStatusInvalid": "Invalid order status"
     },
     "about": {
         "title": "About Us",

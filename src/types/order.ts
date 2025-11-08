@@ -1,3 +1,11 @@
+export enum OrderStatusEnum {
+  pending = "pending",
+  confirmed = "confirmed",
+  shipped = "shipped",
+  delivered = "delivered",
+  cancelled = "cancelled",
+}
+
 export interface IOrderBase {
   user_id: number;
   address_id: number;
@@ -6,7 +14,7 @@ export interface IOrderBase {
 export interface IOrderCreate {
   user_id: number;
   address_id: number;
-  status: string;
+  status: OrderStatusEnum;
 }
 
 export interface IOrderCreateFromCart {
@@ -19,7 +27,7 @@ export interface IOrderUpdate extends IOrderBase {
 
 export interface UpdateStatusOrder {
   id: number;
-  status: string;
+  status: OrderStatusEnum;
 }
 
 export interface IOrderItem {
@@ -36,7 +44,11 @@ export interface UpdateOrderItemPayload {
 
 export interface IOrder extends IOrderBase {
   id: number;
-  status: string;
+  user_name: string;
+  total_price: number;
+  status: OrderStatusEnum;
+  created_at: string;
+  updated_at: string;
   items: Array<IOrderItem>;
 }
 
