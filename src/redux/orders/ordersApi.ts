@@ -6,7 +6,7 @@ import {
   HTTPMethods,
   ApiParams,
   IOrder,
-  UpdateStatusOrder,
+  IOrderUpdate,
   IOrderCreateFromCart,
   IOrderCreate,
 } from "../../types";
@@ -58,10 +58,10 @@ export const ordersApi = createApi({
         { type: "Order", id },
       ],
     }),
-    updateStatusOrder: builder.mutation<IOrder, UpdateStatusOrder>({
+    updateOrder: builder.mutation<IOrder, IOrderUpdate>({
       query: (body) => ({
-        method: HTTPMethods.PATCH,
-        body: { status: body.status },
+        body,
+        method: HTTPMethods.PUT,
         url: `/orders/${body.id}`,
       }),
       invalidatesTags: (result, error, { id }) => [
@@ -85,6 +85,6 @@ export const {
   useGetMyOrdersQuery,
   useGetOrdersQuery,
   useGetOrderByIdQuery,
-  useUpdateStatusOrderMutation,
+  useUpdateOrderMutation,
   useDeleteOrderMutation,
 } = ordersApi;

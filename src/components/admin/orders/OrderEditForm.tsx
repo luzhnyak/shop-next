@@ -17,7 +17,7 @@ import { useTranslations } from "next-intl";
 
 import {
   useCreateOrderMutation,
-  useUpdateStatusOrderMutation,
+  useUpdateOrderMutation,
 } from "@/redux/orders/ordersApi";
 
 import { IOrderCreate, OrderStatusEnum } from "@/types";
@@ -41,8 +41,7 @@ export const OrderEditForm = ({
   const isEditing = Boolean(orderId);
 
   const [createOrder, { isLoading: isCreating }] = useCreateOrderMutation();
-  const [updateStatusOrder, { isLoading: isUpdating }] =
-    useUpdateStatusOrderMutation();
+  const [updateOrder, { isLoading: isUpdating }] = useUpdateOrderMutation();
 
   const t = useTranslations();
   const schema = useOrderSchema();
@@ -67,7 +66,7 @@ export const OrderEditForm = ({
     };
 
     if (isEditing) {
-      updateStatusOrder({ id: orderId!, ...payload });
+      updateOrder({ id: orderId!, ...payload });
     } else {
       createOrder(payload);
     }

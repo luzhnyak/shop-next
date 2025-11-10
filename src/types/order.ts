@@ -9,6 +9,7 @@ export enum OrderStatusEnum {
 export interface IOrderBase {
   user_id: number;
   address_id: number;
+  status: OrderStatusEnum;
 }
 
 export interface IOrderCreate {
@@ -46,7 +47,6 @@ export interface IOrder extends IOrderBase {
   id: number;
   user_name: string;
   total_price: number;
-  status: OrderStatusEnum;
   created_at: string;
   updated_at: string;
   items: Array<IOrderItem>;
