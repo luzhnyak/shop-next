@@ -59,8 +59,8 @@ This project can be run inside a Docker container.
 
 ### 1. Clone the repository (if needed)
 ```bash
-git clone https://github.com/luzhnyak/prom-concept-next
-cd prom-concept-next
+git clone https://github.com/luzhnyak/shop-next
+cd shop-next-next
 ```
 
 ### 2. Run the container
